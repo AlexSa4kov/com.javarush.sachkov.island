@@ -1,0 +1,76 @@
+package util.constant;
+
+import java.util.Map;
+
+public class ConsumptionMatrix {
+
+
+    private static final Map<String, Integer> ROW_INDEX = Map.ofEntries(
+            Map.entry("Волк", 0),
+            Map.entry("Удав", 1),
+            Map.entry("Лиса", 2),
+            Map.entry("Медведь", 3),
+            Map.entry("Орел", 4),
+            Map.entry("Лошадь", 5),
+            Map.entry("Олень", 6),
+            Map.entry("Кролик", 7),
+            Map.entry("Мышь", 8),
+            Map.entry("Коза", 9),
+            Map.entry("Овца", 10),
+            Map.entry("Кабан", 11),
+            Map.entry("Буйвол", 12),
+            Map.entry("Утка", 13),
+            Map.entry("Гусеница", 14)
+    );
+
+    private static final Map<String, Integer> COL_INDEX = Map.ofEntries(
+            Map.entry("Волк", 0),
+            Map.entry("Удав", 1),
+            Map.entry("Лиса", 2),
+            Map.entry("Медведь", 3),
+            Map.entry("Орел", 4),
+            Map.entry("Лошадь", 5),
+            Map.entry("Олень", 6),
+            Map.entry("Кролик", 7),
+            Map.entry("Мышь", 8),
+            Map.entry("Коза", 9),
+            Map.entry("Овца", 10),
+            Map.entry("Кабан", 11),
+            Map.entry("Буйвол", 12),
+            Map.entry("Утка", 13),
+            Map.entry("Гусеница", 14),
+            Map.entry("Растения", 15)
+    );
+
+    private static final int[][] MATRIX = new int[][] {
+            {0, 0, 0, 0, 0, 10, 15, 60, 80, 60, 70, 15, 10, 40, 0, 0},
+            {0, 0, 15, 0, 0, 0, 0, 20, 40, 0, 0, 0, 0, 10, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 70, 90, 0, 0, 0, 0, 60, 40, 0},
+            {0, 80, 0, 0, 0, 40, 80, 80, 90, 70, 70, 50, 20, 10, 0, 0},
+            {0, 0, 10, 0, 0, 0, 0, 90, 90, 0, 0, 0, 0, 80, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 100},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100},
+            {0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, 0, 0, 0, 90, 100},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 100},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100},
+    };
+
+    public static int getValueFromMatrix(String hunter, String prey) {
+
+        Integer rowIndex = ROW_INDEX.get(hunter);
+        Integer colIndex = COL_INDEX.get(prey);
+
+        if (rowIndex == null || colIndex == null) {
+            throw new IllegalArgumentException("Такого зверя нет");
+        }
+
+        return MATRIX[rowIndex][colIndex];
+    }
+
+
+}
