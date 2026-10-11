@@ -1,6 +1,6 @@
-package model.organisms;
+package main.java.model.organisms;
 
-import model.Location;
+import main.java.model.Location;
 
 public abstract class Organism {
 

@@ -1,12 +1,12 @@
-package model;
+package main.java.model;
 
-import static util.constant.AppConstants.SIDE_X;
-import static util.constant.AppConstants.SIDE_Y;
+import static main.java.constant.AppConstants.SIDE_X;
+import static main.java.constant.AppConstants.SIDE_Y;
 
 public class Island {
 
     private static Island INSTANCE;
-    private static Location [][] location;
+    public static Location [][] location;
 
     private Island() {
         location = new Location[SIDE_X][SIDE_Y];
