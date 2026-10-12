@@ -3,20 +3,12 @@ package main.java.model.organisms;
 
 public abstract class Animal extends Organism {
 
-    protected String name;
-    protected int health;
-    protected int weight;
-    protected int limitOfAnimalsInArea;
-    protected int limitOfMoved;
-    protected double currentSatiety;
-    protected double satietyLimitPerEating;
-
     public Animal(String name, int health, int weight, int limitOfAnimalsInArea, int limitOfMoved, double currentSatiety, double satietyLimit) {
         this.name = name;
         this.health = health;
         this.weight = weight;
-        this.limitOfAnimalsInArea = limitOfAnimalsInArea;
-        this.limitOfMoved = limitOfMoved;
+        this.limitInArea = limitOfAnimalsInArea;
+        this.speed = limitOfMoved;
         this.currentSatiety = currentSatiety;
         this.satietyLimitPerEating = satietyLimit;
     }
@@ -54,19 +46,19 @@ public abstract class Animal extends Organism {
     }
 
     public int getLimitOfAnimalsInArea() {
-        return limitOfAnimalsInArea;
+        return limitInArea;
     }
 
     public void setLimitOfAnimalsInArea(int limitOfAnimalsInArea) {
-        this.limitOfAnimalsInArea = limitOfAnimalsInArea;
+        this.limitInArea = limitOfAnimalsInArea;
     }
 
     public int getLimitOfMoved() {
-        return limitOfMoved;
+        return speed;
     }
 
     public void setLimitOfMoved(int limitOfMoved) {
-        this.limitOfMoved = limitOfMoved;
+        this.speed = limitOfMoved;
     }
 
     public double getCurrentSatiety() {
