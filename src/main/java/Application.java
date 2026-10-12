@@ -1,15 +1,16 @@
 package main.java;
 
 
+import main.java.IO.IslandPrinter;
 import main.java.model.Island;
 import main.java.model.Location;
 import main.java.model.organisms.Animal;
 import main.java.model.organisms.Plant;
 import main.java.model.organisms.predators.Wolf;
+import main.java.util.StatisticsCollector;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class Application {
@@ -18,7 +19,7 @@ public class Application {
 
         Island INSTANCE = Island.getInstance();
         Location[][] location = Island.location;
-        //создали локацию со списками животных и растений
+        //создали списки животных и растений
         ArrayList<Animal> animals = new  ArrayList<>();
         animals.add(new Wolf());
         animals.add(new Wolf());
@@ -47,6 +48,11 @@ public class Application {
                 System.out.println("---------------------------------------------");
                 }
         }
+
+        StatisticsCollector collector = new StatisticsCollector();
+        IslandPrinter printer = new IslandPrinter();
+        printer.printInformation(collector.collectData(INSTANCE));
+
 
     }
 }

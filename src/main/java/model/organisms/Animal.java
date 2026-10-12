@@ -5,6 +5,7 @@ import main.java.model.Location;
 
 public abstract class Animal extends Organism {
 
+
     protected int moveInTik;
     protected double currentSatiety;
     protected double satietyLimitPerEating;
