@@ -4,7 +4,6 @@ import java.util.Map;
 
 public class ConsumptionMatrix {
 
-
     private static final Map<String, Integer> ROW_INDEX = Map.ofEntries(
             Map.entry("Волк", 0),
             Map.entry("Удав", 1),

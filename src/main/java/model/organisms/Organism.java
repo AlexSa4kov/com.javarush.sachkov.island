@@ -2,34 +2,32 @@ package main.java.model.organisms;
 
 import main.java.model.Location;
 
-
+//Прародитель всего и вся
 public abstract class Organism {
 
     protected String name;
     protected String icon;
     protected int health;
-    protected int weight;
+    protected double weight;
     protected int limitInArea;
-    protected int speed;
-    protected double currentSatiety;
-    protected double satietyLimitPerEating;
     protected boolean isAlive;
     protected Location location;
 
 
-    public Organism(String name, String icon,
-                    int health, int weight, int limitInArea,
-                    int speed, double currentSatiety,
-                    double satietyLimitPerEating, boolean isAlive,
-                    Location location) {
+    //любой организм может размножаться и умирать
+    public void multiply() {
+    }
+
+
+    public void die() {
+    }
+
+    public Organism(String name, String icon, int health, double weight, int limitInArea, boolean isAlive, Location location) {
         this.name = name;
         this.icon = icon;
         this.health = health;
         this.weight = weight;
         this.limitInArea = limitInArea;
-        this.speed = speed;
-        this.currentSatiety = currentSatiety;
-        this.satietyLimitPerEating = satietyLimitPerEating;
         this.isAlive = isAlive;
         this.location = location;
     }
@@ -58,11 +56,11 @@ public abstract class Organism {
         this.health = health;
     }
 
-    public int getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 
@@ -72,30 +70,6 @@ public abstract class Organism {
 
     public void setLimitInArea(int limitInArea) {
         this.limitInArea = limitInArea;
-    }
-
-    public int getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    public double getCurrentSatiety() {
-        return currentSatiety;
-    }
-
-    public void setCurrentSatiety(double currentSatiety) {
-        this.currentSatiety = currentSatiety;
-    }
-
-    public double getSatietyLimitPerEating() {
-        return satietyLimitPerEating;
-    }
-
-    public void setSatietyLimitPerEating(double satietyLimitPerEating) {
-        this.satietyLimitPerEating = satietyLimitPerEating;
     }
 
     public boolean isAlive() {

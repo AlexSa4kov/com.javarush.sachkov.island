@@ -1,11 +1,8 @@
 package main.java.model.organisms;
 
+
 public class Plant extends Organism {
     public Plant() {
+        super("Растение", "\uD83C\uDF31", 100, 1, 200, true, null);
     }
-
-    // растения тоже имеют поля (вес, количество в локации), следовательно
-    // их (поля weight и limitOfAnimalsInArea) можно переместить
-    // в класс Organism
-
 }
