@@ -4,8 +4,8 @@ import main.java.model.Island;
 import main.java.model.Location;
 import main.java.model.organism.Animal;
 import main.java.model.organism.Plant;
-import main.java.model.organism.herbivores.abstraction.Herbivore;
-import main.java.model.organism.predators.abstraction.Predator;
+import main.java.model.organism.herbivore.abstraction.Herbivore;
+import main.java.model.organism.predator.abstraction.Predator;
 
 import java.util.ArrayList;
 

@@ -1,6 +1,6 @@
-package main.java.model.organism.predators;
+package main.java.model.organism.predator;
 
-import main.java.model.organism.predators.abstraction.Predator;
+import main.java.model.organism.predator.abstraction.Predator;
 
 public class Wolf extends Predator {
 

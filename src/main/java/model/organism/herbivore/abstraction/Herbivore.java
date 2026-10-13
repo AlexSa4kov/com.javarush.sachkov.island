@@ -1,4 +1,4 @@
-package main.java.model.organism.herbivores.abstraction;
+package main.java.model.organism.herbivore.abstraction;
 
 import main.java.model.Location;
 import main.java.model.organism.Animal;
