@@ -1,4 +1,4 @@
-package main.java.IO;
+package main.java.io;
 
 
 import main.java.util.IslandStats;

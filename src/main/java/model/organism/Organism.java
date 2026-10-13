@@ -1,4 +1,4 @@
-package main.java.model.organisms;
+package main.java.model.organism;
 
 import main.java.model.Location;
 
@@ -14,15 +14,15 @@ public abstract class Organism {
     protected Location location;
 
 
-    //любой организм может размножаться и умирать
-    public void multiply() {
-    }
-
-
-    public void die() {
-    }
-
-    public Organism(String name, String icon, int health, double weight, int limitInArea, boolean isAlive, Location location) {
+    public Organism(
+            String name,
+            String icon,
+            int health,
+            double weight,
+            int limitInArea,
+            boolean isAlive,
+            Location location
+    ) {
         this.name = name;
         this.icon = icon;
         this.health = health;
@@ -86,5 +86,11 @@ public abstract class Organism {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public void multiply() {
+    }
+
+    public void die() {
     }
 }

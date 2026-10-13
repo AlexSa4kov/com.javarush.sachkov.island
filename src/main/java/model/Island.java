@@ -1,7 +1,7 @@
 package main.java.model;
 
-import static main.java.constant.AppConstants.SIDE_X;
-import static main.java.constant.AppConstants.SIDE_Y;
+
+import main.java.constant.AppConstants;
 
 public class Island {
 
@@ -9,7 +9,7 @@ public class Island {
     public static Location [][] location;
 
     private Island() {
-        location = new Location[SIDE_X][SIDE_Y];
+        location = new Location[AppConstants.SIDE_X][AppConstants.SIDE_Y];
     }
 
     public static Island getInstance() {

@@ -2,10 +2,10 @@ package main.java.util;
 
 import main.java.model.Island;
 import main.java.model.Location;
-import main.java.model.organisms.Animal;
-import main.java.model.organisms.Plant;
-import main.java.model.organisms.herbivores.Herbivore;
-import main.java.model.organisms.predators.Predator;
+import main.java.model.organism.Animal;
+import main.java.model.organism.Plant;
+import main.java.model.organism.herbivores.abstraction.Herbivore;
+import main.java.model.organism.predators.abstraction.Predator;
 
 import java.util.ArrayList;
 

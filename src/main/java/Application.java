@@ -1,12 +1,11 @@
 package main.java;
 
 
-import main.java.IO.IslandPrinter;
+import main.java.io.IslandPrinter;
 import main.java.model.Island;
 import main.java.model.Location;
-import main.java.model.organisms.Animal;
-import main.java.model.organisms.Plant;
-import main.java.model.organisms.predators.Wolf;
+import main.java.model.organism.Animal;
+import main.java.model.organism.Plant;
 import main.java.util.StatisticsCollector;
 
 
@@ -21,19 +20,14 @@ public class Application {
         Location[][] location = Island.location;
         //создали списки животных и растений
         ArrayList<Animal> animals = new  ArrayList<>();
-        animals.add(new Wolf());
-        animals.add(new Wolf());
-        animals.add(new Wolf());
         ArrayList<Plant> plants = new  ArrayList<>();
-        plants.add(new Plant());
-        plants.add(new Plant());
-        plants.add(new Plant());
 
 
         //наполняем локации списками, для дальнейшего помещения в них "живности"
         for (int i = 0; i < location.length; i++) {
             for (int j = 0; j < location[i].length; j++) {
                 location[i][j] = new Location(animals, plants);
+
             }
         }
 
