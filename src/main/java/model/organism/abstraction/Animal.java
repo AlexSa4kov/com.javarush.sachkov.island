@@ -1,6 +1,8 @@
 package main.java.model.organism.abstraction;
 
 import main.java.model.Location;
+import main.java.model.organism.Caterpillar;
+import main.java.model.organism.Plant;
 import main.java.model.organism.herbivore.*;
 import main.java.model.organism.predator.*;
 import main.java.util.IslandUtils;
@@ -40,7 +42,35 @@ public abstract class Animal extends Organism {
     public void move() {
     }
 
+    // рассмотреть вопрос реализации показателей: вес, сытость (сытость текущая,
+    // сытость максимальная, максимальный вес.
+    // пока увеличиваем сытость на 20%
+
     public void eat() {
+        if (!isAlive || location == null) return;
+
+        if (this instanceof Herbivore) {
+            Plant plant = location.getPlantToEat();
+            if (plant != null && IslandUtils.canEat(this, plant)) {
+                if (IslandUtils.isEat(this, plant)) {
+                    location.removePlant(plant);
+                    this.currentSatiety += currentSatiety * 0.2;
+                    return;
+                }
+            }
+        }
+
+        if (this instanceof Predator) {
+            for (Animal target : location.getAnimalsCopy()) {
+                if (target != this && target.isAlive() && IslandUtils.canEat(this, target)) {
+                    if (IslandUtils.isEat(this, target)) {
+                        target.die(); // жертва погибает
+                        this.currentSatiety += currentSatiety * 0.2;
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     public void multiply() {
@@ -64,7 +94,7 @@ public abstract class Animal extends Organism {
                     case "Boar" -> new Boar();
                     case "Buffalo" -> new Buffalo();
                     case "Duck" -> new Duck();
-                    //case "Caterpillar" -> new Caterpillar();                  //разобраться с вариантом создания Гусеницы
+                    case "Caterpillar" -> new Caterpillar();
                     default -> null;
                 };
 

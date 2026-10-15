@@ -1,9 +1,9 @@
 package main.java.model.organism;
 
 
-import main.java.model.organism.abstraction.Organism;
+import main.java.model.organism.abstraction.Animal;
 
-public class Caterpillar extends Organism {
+public class Caterpillar extends Animal {
     public Caterpillar() {
         super(
                 "Caterpillar",
@@ -12,7 +12,10 @@ public class Caterpillar extends Organism {
                 0.01,
                 1000,
                 true,
-                null
+                null,
+                0,
+                0,
+                0
         );
     }
 

@@ -52,4 +52,11 @@ public class Location {
         }
     }
 
+    public Plant getPlantToEat() {
+        return plants.isEmpty() ? null : plants.get(0);
+    }
+
+    public void removePlant(Plant plant) {
+        plants.remove(plant);
+    }
 }
