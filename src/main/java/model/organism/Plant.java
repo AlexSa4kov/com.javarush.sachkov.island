@@ -1,5 +1,6 @@
 package main.java.model.organism;
 
+import main.java.model.organism.abstraction.Organism;
 
 public class Plant extends Organism {
     public Plant() {
@@ -21,5 +22,10 @@ public class Plant extends Organism {
                 "name='" + name + '\'' +
                 ", icon='" + icon + '\'' +
                 '}';
+    }
+
+    @Override
+    public void multiply() {
+        System.out.println("Метод размножения у РАСТЕНИЙ");;
     }
 }

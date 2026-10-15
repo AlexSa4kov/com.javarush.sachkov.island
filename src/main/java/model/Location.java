@@ -1,6 +1,6 @@
 package main.java.model;
 
-import main.java.model.organism.Animal;
+import main.java.model.organism.abstraction.Animal;
 import main.java.model.organism.Plant;
 
 import java.util.ArrayList;

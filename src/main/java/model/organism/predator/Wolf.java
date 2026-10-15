@@ -1,14 +1,15 @@
 package main.java.model.organism.predator;
 
-import main.java.model.organism.predator.abstraction.Predator;
+import main.java.model.organism.abstraction.Predator;
 
 public class Wolf extends Predator {
 
     public Wolf() {
         super(
-                "Волк",
+                "Wolf",
                 "\uD83D\uDC3A",
-                100, 50.0,
+                100,
+                50.0,
                 30,
                 true,
                 null,

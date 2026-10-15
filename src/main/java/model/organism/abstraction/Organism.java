@@ -1,4 +1,4 @@
-package main.java.model.organism;
+package main.java.model.organism.abstraction;
 
 import main.java.model.Location;
 

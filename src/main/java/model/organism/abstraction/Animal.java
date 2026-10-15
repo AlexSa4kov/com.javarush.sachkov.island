@@ -1,12 +1,14 @@
-package main.java.model.organism.herbivore.abstraction;
+package main.java.model.organism.abstraction;
 
 import main.java.model.Location;
-import main.java.model.organism.Animal;
 
-public abstract class Herbivore extends Animal {
+public abstract class Animal extends Organism {
 
+    protected int moveInTik;
+    protected double currentSatiety;
+    protected double satietyLimitPerEating;
 
-    public Herbivore(
+    public Animal(
             String name,
             String icon,
             int health,
@@ -17,8 +19,7 @@ public abstract class Herbivore extends Animal {
             int moveInTik,
             double currentSatiety,
             double satietyLimitPerEating
-    )
-    {
+    ) {
         super(
                 name,
                 icon,
@@ -26,10 +27,16 @@ public abstract class Herbivore extends Animal {
                 weight,
                 limitInArea,
                 isAlive,
-                location,
-                moveInTik,
-                currentSatiety,
-                satietyLimitPerEating
+                location
         );
+        this.moveInTik = moveInTik;
+        this.currentSatiety = currentSatiety;
+        this.satietyLimitPerEating = satietyLimitPerEating;
+    }
+
+    public void eat() {
+    }
+
+    public void move() {
     }
 }

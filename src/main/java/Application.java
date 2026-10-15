@@ -4,7 +4,7 @@ package main.java;
 import main.java.io.IslandPrinter;
 import main.java.model.Island;
 import main.java.model.Location;
-import main.java.model.organism.Animal;
+import main.java.model.organism.abstraction.Animal;
 import main.java.model.organism.Plant;
 import main.java.util.StatisticsCollector;
 

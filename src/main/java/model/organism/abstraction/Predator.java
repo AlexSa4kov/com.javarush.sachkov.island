@@ -1,8 +1,7 @@
-package main.java.model.organism.predator.abstraction;
+package main.java.model.organism.abstraction;
 
 
 import main.java.model.Location;
-import main.java.model.organism.Animal;
 
 public abstract class Predator extends Animal {
 
