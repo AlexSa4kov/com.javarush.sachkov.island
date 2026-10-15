@@ -1,12 +1,10 @@
 package main.java;
 
 
-import main.java.io.IslandPrinter;
 import main.java.model.Island;
 import main.java.model.Location;
 import main.java.model.organism.abstraction.Animal;
 import main.java.model.organism.Plant;
-import main.java.util.StatisticsCollector;
 
 
 import java.util.ArrayList;
@@ -42,10 +40,6 @@ public class Application {
                 System.out.println("---------------------------------------------");
                 }
         }
-
-        StatisticsCollector collector = new StatisticsCollector();
-        IslandPrinter printer = new IslandPrinter();
-        printer.printInformation(collector.collectData(INSTANCE));
 
 
     }

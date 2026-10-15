@@ -1,7 +1,5 @@
 package main.java.model.organism.predator;
 
-import main.java.constant.AppConstants;
-import main.java.model.Location;
 import main.java.model.organism.abstraction.Predator;
 
 public class Bear extends Predator {

@@ -13,4 +13,38 @@ public class Location {
         this.animals = animals;
         this.plants = plants;
     }
+
+    public void addAnimal(Animal animal) {
+        animal.setLocation(this);
+        animals.add(animal);
+    }
+
+    public void removeAnimal(Animal animal) {
+        animals.remove(animal);
+        if(animal.getLocation() == this) {
+            animal.setLocation(null);
+        }
+    }
+
+    public ArrayList<Animal> getAnimalsCopy() {
+        return new ArrayList<>(animals);
+    }
+
+
+    public int countOfCurrentAnimal(String currentAnimal) {
+        int count = 0;
+        for (Animal a : animals) {
+            if (a.isAlive() && a.getClass().getSimpleName().equals(currentAnimal)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public  void addPlant(Plant plant) {
+        if (plants.size() < plant.getLimitInArea()) {
+            plants.add(plant);
+        }
+    }
+
 }

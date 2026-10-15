@@ -89,8 +89,10 @@ public abstract class Organism {
     }
 
     public void multiply() {
+        if(!isAlive || location == null) return;
     }
 
     public void die() {
+        this.isAlive = false;
     }
 }
