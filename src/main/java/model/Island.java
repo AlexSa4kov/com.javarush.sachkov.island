@@ -9,7 +9,7 @@ public class Island {
     public static Location [][] location;
 
     private Island() {
-        location = new Location[AppConstants.SIDE_X][AppConstants.SIDE_Y];
+        location = new Location[AppConstants.ISLAND_HEIGHT][AppConstants.ISLAND_WIDTH];
     }
 
     public static Island getInstance() {

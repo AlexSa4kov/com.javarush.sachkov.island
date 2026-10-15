@@ -1,4 +1,4 @@
-package main.java.model.organism.herbivore;
+package main.java.model.organism;
 
 
 import main.java.model.organism.abstraction.Organism;

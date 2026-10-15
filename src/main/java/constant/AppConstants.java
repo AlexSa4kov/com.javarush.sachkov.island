@@ -3,8 +3,8 @@ package main.java.constant;
 import java.util.Map;
 
 public interface AppConstants {
-    int SIDE_X = 3;
-    int SIDE_Y = 3;
+    int ISLAND_HEIGHT = 3;
+    int ISLAND_WIDTH = 3;
 
     Map<String, Integer> ROW_INDEX = Map.ofEntries(
             Map.entry("Волк", 0),

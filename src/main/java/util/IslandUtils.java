@@ -6,7 +6,7 @@ import main.java.model.organism.abstraction.Animal;
 public class IslandUtils {
 
     public static boolean hasCapacityForAnimal(Location location, Animal animal) {
-        int count = location.countOfCurrentAnimal(animal.getClass().getSimpleName());
+        int count = location.getCountOfCurrentAnimal(animal.getClass().getSimpleName());
         return count >= animal.getLimitInArea();
     }
 }

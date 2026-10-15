@@ -1,6 +1,9 @@
 package main.java.model.organism.abstraction;
 
 import main.java.model.Location;
+import main.java.util.IslandUtils;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 //Прародитель всего и вся
 public abstract class Organism {
@@ -88,9 +91,7 @@ public abstract class Organism {
         this.location = location;
     }
 
-    public void multiply() {
-        if(!isAlive || location == null) return;
-    }
+
 
     public void die() {
         this.isAlive = false;

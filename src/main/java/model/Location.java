@@ -31,7 +31,7 @@ public class Location {
     }
 
 
-    public int countOfCurrentAnimal(String currentAnimal) {
+    public int getCountOfCurrentAnimal(String currentAnimal) {
         int count = 0;
         for (Animal a : animals) {
             if (a.isAlive() && a.getClass().getSimpleName().equals(currentAnimal)) {
@@ -41,7 +41,12 @@ public class Location {
         return count;
     }
 
+    public int getCountOfPlant() {
+        return plants.size();
+    }
+
     public  void addPlant(Plant plant) {
+        plant.setLocation(this);
         if (plants.size() < plant.getLimitInArea()) {
             plants.add(plant);
         }

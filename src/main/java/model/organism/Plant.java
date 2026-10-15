@@ -24,8 +24,15 @@ public class Plant extends Organism {
                 '}';
     }
 
-    @Override
-    public void multiply() {
-        System.out.println("Метод размножения у РАСТЕНИЙ");;
+    public void plantMultiply() {
+        if (!isAlive || location == null) {
+            return;
+        }
+
+        if (location.getCountOfPlant() < limitInArea) {
+            Plant newPlant = new Plant();
+            location.addPlant(newPlant);
+            newPlant.setLocation(location);
+        }
     }
 }
