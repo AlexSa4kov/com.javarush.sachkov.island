@@ -1,11 +1,7 @@
 package main.java.model.organism.abstraction;
 
 import main.java.model.Location;
-import main.java.util.IslandUtils;
 
-import java.util.concurrent.ThreadLocalRandom;
-
-//Прародитель всего и вся
 public abstract class Organism {
 
     protected String name;

@@ -1,9 +1,9 @@
 package main.java.model.organism;
 
-
 import main.java.model.organism.abstraction.Animal;
 
 public class Caterpillar extends Animal {
+
     public Caterpillar() {
         super(
                 "Caterpillar",

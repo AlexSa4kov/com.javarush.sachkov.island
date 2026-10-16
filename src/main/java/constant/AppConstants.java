@@ -3,44 +3,44 @@ package main.java.constant;
 import java.util.Map;
 
 public interface AppConstants {
-    int ISLAND_HEIGHT = 3;
-    int ISLAND_WIDTH = 3;
+    int ISLAND_HEIGHT = 2;
+    int ISLAND_WIDTH = 2;
 
     Map<String, Integer> ROW_INDEX = Map.ofEntries(
-            Map.entry("Волк", 0),
-            Map.entry("Удав", 1),
-            Map.entry("Лиса", 2),
-            Map.entry("Медведь", 3),
-            Map.entry("Орел", 4),
-            Map.entry("Лошадь", 5),
-            Map.entry("Олень", 6),
-            Map.entry("Кролик", 7),
-            Map.entry("Мышь", 8),
-            Map.entry("Коза", 9),
-            Map.entry("Овца", 10),
-            Map.entry("Кабан", 11),
-            Map.entry("Буйвол", 12),
-            Map.entry("Утка", 13),
-            Map.entry("Гусеница", 14)
+            Map.entry("Wolf", 0),
+            Map.entry("Anaconda", 1),
+            Map.entry("Fox", 2),
+            Map.entry("Bear", 3),
+            Map.entry("Eagle", 4),
+            Map.entry("Horse", 5),
+            Map.entry("Deer", 6),
+            Map.entry("Rabbit", 7),
+            Map.entry("Mouse", 8),
+            Map.entry("Goat", 9),
+            Map.entry("Sheep", 10),
+            Map.entry("Boar", 11),
+            Map.entry("Buffalo", 12),
+            Map.entry("Duck", 13),
+            Map.entry("Caterpillar", 14)
     );
 
     Map<String, Integer> COL_INDEX = Map.ofEntries(
-            Map.entry("Волк", 0),
-            Map.entry("Удав", 1),
-            Map.entry("Лиса", 2),
-            Map.entry("Медведь", 3),
-            Map.entry("Орел", 4),
-            Map.entry("Лошадь", 5),
-            Map.entry("Олень", 6),
-            Map.entry("Кролик", 7),
-            Map.entry("Мышь", 8),
-            Map.entry("Коза", 9),
-            Map.entry("Овца", 10),
-            Map.entry("Кабан", 11),
-            Map.entry("Буйвол", 12),
-            Map.entry("Утка", 13),
-            Map.entry("Гусеница", 14),
-            Map.entry("Растения", 15)
+            Map.entry("Wolf", 0),
+            Map.entry("Anaconda", 1),
+            Map.entry("Fox", 2),
+            Map.entry("Bear", 3),
+            Map.entry("Eagle", 4),
+            Map.entry("Horse", 5),
+            Map.entry("Deer", 6),
+            Map.entry("Rabbit", 7),
+            Map.entry("Mouse", 8),
+            Map.entry("Goat", 9),
+            Map.entry("Sheep", 10),
+            Map.entry("Boar", 11),
+            Map.entry("Buffalo", 12),
+            Map.entry("Duck", 13),
+            Map.entry("Caterpillar", 14),
+            Map.entry("Plant", 15)
     );
 
     int[][] MATRIX_OF_CHANCE_EATING = new int[][]{

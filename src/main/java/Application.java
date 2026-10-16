@@ -3,44 +3,45 @@ package main.java;
 
 import main.java.model.Island;
 import main.java.model.Location;
-import main.java.model.organism.abstraction.Animal;
 import main.java.model.organism.Plant;
-
+import main.java.model.organism.abstraction.Animal;
+import main.java.util.IslandInformation;
 
 import java.util.ArrayList;
 
+//Костыль на одну ячейку......
 
 public class Application {
     public static void main(String[] args) {
+        Island island = Island.getInstance();
+        island.populateIsland();
+        ArrayList<Location> location = island.getLocationOfIsland();
+        int day = 0;
+
+        while (true) {
+            day++;
+            for (Location location1 : location) {
+                ArrayList<Animal> animalsCopy = location1.getAnimalsCopy();
+                for (Animal animal : animalsCopy) {
+                    animal.move();
+                    animal.eat();
+                    animal.multiply();
+                }
+                ArrayList<Plant> plantsCopy = location1.getPlantsCopy();
+                for (Plant plant : plantsCopy) {
+                    plant.plantMultiply();
+                }
+            }
 
 
-        Island INSTANCE = Island.getInstance();
-        Location[][] location = Island.location;
-        //создали списки животных и растений
-        ArrayList<Animal> animals = new  ArrayList<>();
-        ArrayList<Plant> plants = new  ArrayList<>();
+            IslandInformation.printDayStatistics(day);
 
-
-        //наполняем локации списками, для дальнейшего помещения в них "живности"
-        for (int i = 0; i < location.length; i++) {
-            for (int j = 0; j < location[i].length; j++) {
-                location[i][j] = new Location(animals, plants);
-
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                break;
             }
         }
-
-
-        for (int i = 0; i < location.length; i++) {
-            System.out.print("");
-            System.out.println("---------------------------------------------");
-            for (int j = 0; j < location[i].length; j++) {
-                System.out.println(location[i][j].animals.toString());
-                System.out.println(location[i][j].plants.toString());
-                System.out.print("");
-                System.out.println("---------------------------------------------");
-                }
-        }
-
-
     }
 }
+

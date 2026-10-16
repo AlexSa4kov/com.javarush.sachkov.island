@@ -3,8 +3,8 @@ package main.java.model.organism;
 import main.java.model.organism.abstraction.Organism;
 
 public class Plant extends Organism {
-    public Plant() {
 
+    public Plant() {
         super(
                 "Растение",
                 "\uD83C\uDF31",

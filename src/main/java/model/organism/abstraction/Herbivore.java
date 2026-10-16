@@ -4,7 +4,6 @@ import main.java.model.Location;
 
 public abstract class Herbivore extends Animal {
 
-
     public Herbivore(
             String name,
             String icon,

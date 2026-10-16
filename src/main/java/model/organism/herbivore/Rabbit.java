@@ -3,6 +3,7 @@ package main.java.model.organism.herbivore;
 import main.java.model.organism.abstraction.Herbivore;
 
 public class Rabbit extends Herbivore {
+
     public Rabbit() {
         super(
                 "Rabbit",

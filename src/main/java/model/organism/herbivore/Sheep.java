@@ -3,6 +3,7 @@ package main.java.model.organism.herbivore;
 import main.java.model.organism.abstraction.Herbivore;
 
 public class Sheep extends Herbivore {
+
     public Sheep() {
         super(
                 "Sheep",
@@ -14,7 +15,8 @@ public class Sheep extends Herbivore {
                 null,
                 3,
                 100,
-                15);
+                15
+        );
     }
 
     @Override

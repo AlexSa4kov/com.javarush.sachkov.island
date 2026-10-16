@@ -1,9 +1,9 @@
 package main.java.model.organism.herbivore;
 
-import main.java.model.Location;
 import main.java.model.organism.abstraction.Herbivore;
 
 public class Boar extends Herbivore {
+
     public Boar() {
         super(
                 "Boar",

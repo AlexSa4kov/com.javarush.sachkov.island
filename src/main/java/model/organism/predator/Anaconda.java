@@ -3,6 +3,7 @@ package main.java.model.organism.predator;
 import main.java.model.organism.abstraction.Predator;
 
 public class Anaconda extends Predator {
+
     public Anaconda() {
         super(
                 "Anaconda",

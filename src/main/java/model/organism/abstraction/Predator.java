@@ -1,10 +1,8 @@
 package main.java.model.organism.abstraction;
 
-
 import main.java.model.Location;
 
 public abstract class Predator extends Animal {
-
 
     public Predator(
             String name,

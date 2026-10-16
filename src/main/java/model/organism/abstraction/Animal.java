@@ -7,6 +7,8 @@ import main.java.model.organism.herbivore.*;
 import main.java.model.organism.predator.*;
 import main.java.util.IslandUtils;
 
+import java.util.ArrayList;
+
 public abstract class Animal extends Organism {
 
     protected int moveInTik;
@@ -61,10 +63,12 @@ public abstract class Animal extends Organism {
         }
 
         if (this instanceof Predator) {
-            for (Animal target : location.getAnimalsCopy()) {
+            ArrayList<Animal> animalsCopy = location.getAnimalsCopy();
+            animalsCopy.remove(this);
+            for (Animal target : animalsCopy) {
                 if (target != this && target.isAlive() && IslandUtils.canEat(this, target)) {
                     if (IslandUtils.isEat(this, target)) {
-                        target.die(); // жертва погибает
+                        target.die();
                         this.currentSatiety += currentSatiety * 0.2;
                         break;
                     }

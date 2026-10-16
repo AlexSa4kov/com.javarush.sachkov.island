@@ -29,7 +29,9 @@ public class Location {
     public ArrayList<Animal> getAnimalsCopy() {
         return new ArrayList<>(animals);
     }
-
+    public ArrayList<Plant> getPlantsCopy() {
+        return new ArrayList<>(plants);
+    }
 
     public int getCountOfCurrentAnimal(String currentAnimal) {
         int count = 0;
