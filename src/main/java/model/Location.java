@@ -4,16 +4,17 @@ import main.java.model.organism.abstraction.Animal;
 import main.java.model.organism.Plant;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Location {
     private final int x;
     private final int y;
-    public ArrayList<Animal> animals;
-    public ArrayList<Plant> plants;
+    public CopyOnWriteArrayList<Animal> animals;
+    public CopyOnWriteArrayList<Plant> plants;
 
 
 
-    public Location(int x, int y, ArrayList<Animal> animals, ArrayList<Plant> plants) {
+    public Location(int x, int y, CopyOnWriteArrayList<Animal> animals, CopyOnWriteArrayList<Plant> plants) {
         this.x = x;
         this.y = y;
         this.animals = animals;

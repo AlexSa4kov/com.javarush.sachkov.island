@@ -6,8 +6,8 @@ public interface AppConstants {
     int ISLAND_HEIGHT = 2;
     int ISLAND_WIDTH = 2;
     int THREAD_COUNT = 8;
-    int STAGE_TIMEOUT_MS = 200;
-    int DAY_DELAY_MS = 500;
+    int STAGE_TIMEOUT_MS = 10;
+    int DAY_DELAY_MS = 20;
 
     Map<String, Integer> ROW_INDEX = Map.ofEntries(
             Map.entry("Wolf", 0),
