@@ -1,5 +1,6 @@
 package main.java.util;
 
+import main.java.constant.AppConstants;
 import main.java.model.Island;
 import main.java.model.Location;
 import main.java.model.organism.Plant;
@@ -13,9 +14,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class SimulationEngine {
-    private static final int THREAD_COUNT = 4;
-    private static final int STAGE_TIMEOUT_MS = 250;
-    private static final int DAY_DELAY_MS = 1000;
 
     private final Island island;
     private final ArrayList<Location> locations;
@@ -26,7 +24,7 @@ public class SimulationEngine {
         this.island = Island.getInstance();
         this.island.populateIsland();
         this.locations = island.getLocationOfIsland();
-        this.executor = Executors.newFixedThreadPool(THREAD_COUNT);
+        this.executor = Executors.newFixedThreadPool(AppConstants.THREAD_COUNT);
         this.day = 0;
     }
 
@@ -45,7 +43,7 @@ public class SimulationEngine {
 
                 IslandInformation.printDayStatistics(day);
 
-                Thread.sleep(DAY_DELAY_MS);
+                Thread.sleep(AppConstants.DAY_DELAY_MS);
             }
         } catch (InterruptedException e) {
             System.out.println("Симуляция была остановлена.");
@@ -57,7 +55,6 @@ public class SimulationEngine {
     public void stop() {
         if (!executor.isShutdown()) {
             executor.shutdown();
-            System.out.println("Пул потоков симуляции успешно остановлен.");
         }
     }
 
@@ -72,7 +69,7 @@ public class SimulationEngine {
                 return null;
             });
         }
-        executor.invokeAll(tasks, STAGE_TIMEOUT_MS, TimeUnit.MILLISECONDS);
+        executor.invokeAll(tasks, AppConstants.STAGE_TIMEOUT_MS, TimeUnit.MILLISECONDS);
     }
 
     private void runEatTask() throws InterruptedException {
@@ -86,7 +83,7 @@ public class SimulationEngine {
                 return null;
             });
         }
-        executor.invokeAll(tasks, STAGE_TIMEOUT_MS, TimeUnit.MILLISECONDS);
+        executor.invokeAll(tasks, AppConstants.STAGE_TIMEOUT_MS, TimeUnit.MILLISECONDS);
     }
 
     private void runMultiplyTask() throws InterruptedException {
@@ -100,7 +97,7 @@ public class SimulationEngine {
                 return null;
             });
         }
-        executor.invokeAll(tasks, STAGE_TIMEOUT_MS, TimeUnit.MILLISECONDS);
+        executor.invokeAll(tasks, AppConstants.STAGE_TIMEOUT_MS, TimeUnit.MILLISECONDS);
     }
 
     private void runStarvationTask() throws InterruptedException {
@@ -114,7 +111,7 @@ public class SimulationEngine {
                 return null;
             });
         }
-        executor.invokeAll(tasks, STAGE_TIMEOUT_MS, TimeUnit.MILLISECONDS);
+        executor.invokeAll(tasks, AppConstants.STAGE_TIMEOUT_MS, TimeUnit.MILLISECONDS);
     }
 
     private void runPlantGrowthTask() throws InterruptedException {
@@ -128,7 +125,7 @@ public class SimulationEngine {
                 return null;
             });
         }
-        executor.invokeAll(tasks, STAGE_TIMEOUT_MS, TimeUnit.MILLISECONDS);
+        executor.invokeAll(tasks, AppConstants.STAGE_TIMEOUT_MS, TimeUnit.MILLISECONDS);
     }
 
 }
