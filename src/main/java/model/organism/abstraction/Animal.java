@@ -1,5 +1,7 @@
 package main.java.model.organism.abstraction;
 
+import main.java.constant.AppConstants;
+import main.java.model.Island;
 import main.java.model.Location;
 import main.java.model.organism.Caterpillar;
 import main.java.model.organism.Plant;
@@ -8,6 +10,7 @@ import main.java.model.organism.predator.*;
 import main.java.util.IslandUtils;
 
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal extends Organism {
 
@@ -42,6 +45,46 @@ public abstract class Animal extends Organism {
     }
 
     public void move() {
+        if (!isAlive || location == null || moveInTik == 0) {
+            return;
+        }
+
+        int currentX = location.getX();
+        int currentY = location.getY();
+
+        int steps = ThreadLocalRandom.current().nextInt(moveInTik + 1);
+        if (steps == 0) return;
+
+        for (int i = 0; i < steps; i++) { // выбор направления движения животного в пределах своих полномочийй
+            int direction = ThreadLocalRandom.current().nextInt(4);
+            switch (direction) {
+                case 0 -> {
+                    if (currentX > 0) currentX--;
+                }
+                case 1 -> {
+                    if (currentX < AppConstants.ISLAND_HEIGHT - 1) currentX++;
+                }
+                case 2 -> {
+                    if (currentY > 0) currentY--;
+                }
+                case 3 -> {
+                    if (currentY < AppConstants.ISLAND_WIDTH - 1) currentY++;
+                }
+            }
+        }
+
+        Location targetLocation = Island.location[currentX][currentY];
+
+        if (IslandUtils.hasCapacityForAnimal(targetLocation, this)) {
+            synchronized (this) {
+                if (this.location != null) {
+                    Location oldLocation = this.location;
+
+                    oldLocation.removeAnimal(this);
+                    targetLocation.addAnimal(this);
+                }
+            }
+        }
     }
 
     // рассмотреть вопрос реализации показателей: вес, сытость (сытость текущая,

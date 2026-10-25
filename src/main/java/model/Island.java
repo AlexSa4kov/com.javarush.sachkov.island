@@ -27,7 +27,7 @@ public class Island {
     public void populateIsland() {
         for (int i = 0; i < AppConstants.ISLAND_HEIGHT; i++) {
             for (int j = 0; j < AppConstants.ISLAND_WIDTH; j++) {
-                location[i][j] = new Location(new ArrayList<Animal>(), new ArrayList<Plant>());
+                location[i][j] = new Location(i, j, new ArrayList<Animal>(), new ArrayList<Plant>());
                 IslandUtils.populationOfLocation(location[i][j]);
             }
         }

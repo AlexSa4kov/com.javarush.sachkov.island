@@ -6,12 +6,26 @@ import main.java.model.organism.Plant;
 import java.util.ArrayList;
 
 public class Location {
+    private final int x;
+    private final int y;
     public ArrayList<Animal> animals;
     public ArrayList<Plant> plants;
 
-    public Location(ArrayList<Animal> animals, ArrayList<Plant> plants) {
+
+
+    public Location(int x, int y, ArrayList<Animal> animals, ArrayList<Plant> plants) {
+        this.x = x;
+        this.y = y;
         this.animals = animals;
         this.plants = plants;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 
     public void addAnimal(Animal animal) {
