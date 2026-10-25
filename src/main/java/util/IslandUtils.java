@@ -47,19 +47,19 @@ public class IslandUtils {
     //рандомная инициализация каждого подвида
     public static void populationOfLocation(Location location) {
 
-        int plantsCount = ThreadLocalRandom.current().nextInt(20, 200);
+        int plantsCount = ThreadLocalRandom.current().nextInt(20, 150);
         for (int i = 0; i < plantsCount; i++) {
             location.addPlant(new Plant());
         }
-        int wolves = ThreadLocalRandom.current().nextInt(1, 30);
+        int wolves = ThreadLocalRandom.current().nextInt(1, 15);
         for (int i = 0; i < wolves; i++) {
             location.addAnimal(new Wolf());
         }
-        int anaconds = ThreadLocalRandom.current().nextInt(0, 30);
+        int anaconds = ThreadLocalRandom.current().nextInt(0, 10);
         for (int i = 0; i < anaconds; i++) {
             location.addAnimal(new Anaconda());
         }
-        int foxes = ThreadLocalRandom.current().nextInt(1, 30);
+        int foxes = ThreadLocalRandom.current().nextInt(1, 15);
         for (int i = 0; i < foxes; i++) {
             location.addAnimal(new Fox());
         }
@@ -67,15 +67,15 @@ public class IslandUtils {
         for (int i = 0; i < bears; i++) {
             location.addAnimal(new Bear());
         }
-        int eagles = ThreadLocalRandom.current().nextInt(0, 20);
+        int eagles = ThreadLocalRandom.current().nextInt(0, 10);
         for (int i = 0; i < eagles; i++) {
             location.addAnimal(new Eagle());
         }
-        int horses = ThreadLocalRandom.current().nextInt(0, 20);
+        int horses = ThreadLocalRandom.current().nextInt(0, 10);
         for (int i = 0; i < horses; i++) {
             location.addAnimal(new Horse());
         }
-        int deer = ThreadLocalRandom.current().nextInt(0, 20);
+        int deer = ThreadLocalRandom.current().nextInt(0, 10);
         for (int i = 0; i < deer; i++) {
             location.addAnimal(new Deer());
         }
@@ -83,19 +83,19 @@ public class IslandUtils {
         for (int i = 0; i < rabbits; i++) {
             location.addAnimal(new Rabbit());
         }
-        int mice = ThreadLocalRandom.current().nextInt(2, 500);
+        int mice = ThreadLocalRandom.current().nextInt(2, 250);
         for (int i = 0; i < mice; i++) {
             location.addAnimal(new Mouse());
         }
-        int goats = ThreadLocalRandom.current().nextInt(0, 140);
+        int goats = ThreadLocalRandom.current().nextInt(0, 70);
         for (int i = 0; i < goats; i++) {
             location.addAnimal(new Goat());
         }
-        int sheep = ThreadLocalRandom.current().nextInt(0, 140);
+        int sheep = ThreadLocalRandom.current().nextInt(0, 70);
         for (int i = 0; i < sheep; i++) {
             location.addAnimal(new Sheep());
         }
-        int boars = ThreadLocalRandom.current().nextInt(0, 50);
+        int boars = ThreadLocalRandom.current().nextInt(0, 25);
         for (int i = 0; i < boars; i++) {
             location.addAnimal(new Boar());
         }
@@ -103,11 +103,11 @@ public class IslandUtils {
         for (int i = 0; i < buffaloes; i++) {
             location.addAnimal(new Buffalo());
         }
-        int ducks = ThreadLocalRandom.current().nextInt(1, 200);
+        int ducks = ThreadLocalRandom.current().nextInt(1, 100);
         for (int i = 0; i < ducks; i++) {
             location.addAnimal(new Duck());
         }
-        int caterpillars = ThreadLocalRandom.current().nextInt(100, 1000);
+        int caterpillars = ThreadLocalRandom.current().nextInt(100, 500);
         for (int i = 0; i < caterpillars; i++) {
             location.addAnimal(new Caterpillar());
         }

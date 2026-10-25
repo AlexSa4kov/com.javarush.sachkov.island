@@ -5,9 +5,9 @@ import java.util.Map;
 public interface AppConstants {
     int ISLAND_HEIGHT = 2;
     int ISLAND_WIDTH = 2;
-    int THREAD_COUNT = 8;
-    int STAGE_TIMEOUT_MS = 10;
-    int DAY_DELAY_MS = 20;
+    int THREAD_POOL_SIZE = 8;
+    int STAGE_TIMEOUT_MS = 200;
+    int DAY_DELAY_MS = 1000;
 
     Map<String, Integer> ROW_INDEX = Map.ofEntries(
             Map.entry("Wolf", 0),

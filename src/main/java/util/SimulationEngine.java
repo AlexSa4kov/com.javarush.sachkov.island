@@ -35,9 +35,11 @@ public class SimulationEngine {
                 System.out.println("\n========== НАЧАЛО ДНЯ " + day + " ==========");
 
                 runMoveTask();
+                resetFlagOfParticipation();
                 runEatTask();
+                resetFlagOfParticipation();
                 runMultiplyTask();
-                runStarvationTask();
+                resetFlagOfParticipation();
                 runPlantGrowthTask();
 
                 IslandInformation.printDayStatistics(day);
@@ -99,20 +101,6 @@ public class SimulationEngine {
         executor.invokeAll(tasks, AppConstants.STAGE_TIMEOUT_MS, TimeUnit.MILLISECONDS);
     }
 
-    private void runStarvationTask() throws InterruptedException {
-        List<Callable<Void>> tasks = new ArrayList<>();
-        for (Location location : locations) {
-            tasks.add(() -> {
-                for (Animal animal : location.getAnimalsCopy()) {
-                    if (Thread.currentThread().isInterrupted()) break;
-                    animal.starvation();
-                }
-                return null;
-            });
-        }
-        executor.invokeAll(tasks, AppConstants.STAGE_TIMEOUT_MS, TimeUnit.MILLISECONDS);
-    }
-
     private void runPlantGrowthTask() throws InterruptedException {
         List<Callable<Void>> tasks = new ArrayList<>();
         for (Location location : locations) {
@@ -125,6 +113,17 @@ public class SimulationEngine {
             });
         }
         executor.invokeAll(tasks, AppConstants.STAGE_TIMEOUT_MS, TimeUnit.MILLISECONDS);
+    }
+
+    public void resetFlagOfParticipation() {
+        ArrayList<Location> locations = Island.getInstance().getLocationOfIsland();
+        for (Location loc : locations) {
+            for (Animal animal : loc.getAnimalsCopy()) {
+                if (animal.isAlive()) {
+                    animal.setParticipation(false); // Готовим к следующему дню
+                }
+            }
+        }
     }
 
 }

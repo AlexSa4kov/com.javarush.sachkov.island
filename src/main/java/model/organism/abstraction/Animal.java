@@ -17,6 +17,9 @@ public abstract class Animal extends Organism {
     protected int moveInTik;
     protected double currentSatiety;
     protected double satietyLimitPerEating;
+    protected boolean isParticipation  = false;
+
+
 
     public Animal(
             String name,
@@ -44,8 +47,16 @@ public abstract class Animal extends Organism {
         this.satietyLimitPerEating = satietyLimitPerEating;
     }
 
+    public boolean isParticipation() {
+        return isParticipation;
+    }
+
+    public void setParticipation(boolean participation) {
+        isParticipation = participation;
+    }
+
     public void move() {
-        if (!isAlive || location == null || moveInTik == 0) {
+        if (!isAlive || location == null || moveInTik == 0 || !isParticipation) {
             return;
         }
 
@@ -53,7 +64,10 @@ public abstract class Animal extends Organism {
         int currentY = location.getY();
 
         int steps = ThreadLocalRandom.current().nextInt(moveInTik + 1);
-        if (steps == 0) return;
+        if (steps == 0) {
+            this.setParticipation(true);
+            return;
+        }
 
         // выбор направления движения животного в пределах своих полномочийй
         // вверх вниз влево вправо
@@ -84,6 +98,7 @@ public abstract class Animal extends Organism {
 
                     oldLocation.removeAnimal(this);
                     targetLocation.addAnimal(this);
+                    this.setParticipation(true);
                 }
             }
         }
@@ -152,15 +167,6 @@ public abstract class Animal extends Organism {
                     baby.setLocation(location);
                 }
             }
-        }
-    }
-
-    //механизм голодания, каждый шаг, если не поел - уровень сытости снижается
-    //если сытость на 0 -> животное умирает
-    public void starvation() {
-        this.currentSatiety -= this.satietyLimitPerEating * 0.2;
-        if (this.currentSatiety <= 0) {
-            die();
         }
     }
 }
