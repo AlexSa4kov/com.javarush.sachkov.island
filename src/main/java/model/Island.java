@@ -7,6 +7,7 @@ import main.java.model.organism.abstraction.Animal;
 import main.java.util.IslandUtils;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Island {
 
@@ -27,7 +28,7 @@ public class Island {
     public void populateIsland() {
         for (int i = 0; i < AppConstants.ISLAND_HEIGHT; i++) {
             for (int j = 0; j < AppConstants.ISLAND_WIDTH; j++) {
-                location[i][j] = new Location(i, j, new ArrayList<Animal>(), new ArrayList<Plant>());
+                location[i][j] = new Location(i, j, new CopyOnWriteArrayList<Animal>(), new CopyOnWriteArrayList<Plant>());
                 IslandUtils.populationOfLocation(location[i][j]);
             }
         }

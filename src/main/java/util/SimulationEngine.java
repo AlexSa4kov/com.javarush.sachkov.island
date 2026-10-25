@@ -8,15 +8,13 @@ import main.java.model.organism.abstraction.Animal;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public class SimulationEngine {
 
     private final Island island;
     private final ArrayList<Location> locations;
+    private final ScheduledExecutorService scheduledPool;
     private final ExecutorService executor;
     private int day;
 
@@ -24,7 +22,8 @@ public class SimulationEngine {
         this.island = Island.getInstance();
         this.island.populateIsland();
         this.locations = island.getLocationOfIsland();
-        this.executor = Executors.newFixedThreadPool(AppConstants.THREAD_COUNT);
+        this.scheduledPool = Executors.newScheduledThreadPool(1);
+        this.executor = Executors.newFixedThreadPool(AppConstants.THREAD_POOL_SIZE);
         this.day = 0;
     }
 

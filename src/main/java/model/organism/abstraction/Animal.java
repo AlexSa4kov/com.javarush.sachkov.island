@@ -55,7 +55,9 @@ public abstract class Animal extends Organism {
         int steps = ThreadLocalRandom.current().nextInt(moveInTik + 1);
         if (steps == 0) return;
 
-        for (int i = 0; i < steps; i++) { // выбор направления движения животного в пределах своих полномочийй
+        // выбор направления движения животного в пределах своих полномочийй
+        // вверх вниз влево вправо
+        for (int i = 0; i < steps; i++) {
             int direction = ThreadLocalRandom.current().nextInt(4);
             switch (direction) {
                 case 0 -> {
@@ -156,7 +158,7 @@ public abstract class Animal extends Organism {
     //механизм голодания, каждый шаг, если не поел - уровень сытости снижается
     //если сытость на 0 -> животное умирает
     public void starvation() {
-        this.currentSatiety -= currentSatiety * 0.2;
+        this.currentSatiety -= this.satietyLimitPerEating * 0.2;
         if (this.currentSatiety <= 0) {
             die();
         }
