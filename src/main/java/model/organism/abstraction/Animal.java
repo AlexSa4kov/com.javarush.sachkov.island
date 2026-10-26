@@ -14,7 +14,7 @@ public abstract class Animal extends Organism {
     protected int moveInTik;
     protected double currentSatiety;
     protected double satietyLimitPerEating;
-    protected boolean isParticipation = false;
+    protected boolean hasMovedInThisDay = false;
     protected boolean hasMultiplyInThisDay = false;
 
     public Animal(
@@ -43,12 +43,12 @@ public abstract class Animal extends Organism {
         this.satietyLimitPerEating = satietyLimitPerEating;
     }
 
-    public boolean isParticipation() {
-        return isParticipation;
+    public boolean isHasMovedInThisDay() {
+        return hasMovedInThisDay;
     }
 
-    public void setParticipation(boolean participation) {
-        isParticipation = participation;
+    public void setHasMovedInThisDay(boolean hasMovedInThisDay) {
+        this.hasMovedInThisDay = hasMovedInThisDay;
     }
 
     public boolean isHasMultiplyInThisDay() {
@@ -62,7 +62,7 @@ public abstract class Animal extends Organism {
     protected abstract Animal createBaby();
 
     public void move() {
-        if (!isAlive || location == null || moveInTik == 0 || !isParticipation) {
+        if (!isAlive || location == null || moveInTik == 0 || !hasMovedInThisDay) {
             return;
         }
 
@@ -71,7 +71,7 @@ public abstract class Animal extends Organism {
 
         int steps = ThreadLocalRandom.current().nextInt(moveInTik + 1);
         if (steps == 0) {
-            this.setParticipation(true);
+            this.setHasMovedInThisDay(true);
             return;
         }
 
@@ -105,6 +105,7 @@ public abstract class Animal extends Organism {
                 synchronized (firstLock) {
                     synchronized (secondLock) {
                         if (this.location == oldLocation && IslandUtils.hasCapacityForAnimal(targetLocation, this)) {
+                            this.setHasMovedInThisDay(true);
                             oldLocation.removeAnimal(this);
                             targetLocation.addAnimal(this);
                         }
@@ -172,7 +173,7 @@ public abstract class Animal extends Organism {
                 if (baby != null) {
                     location.addAnimal(baby);
                     baby.setLocation(location);
-                    baby.setParticipation(true);
+                    baby.setHasMovedInThisDay(true);
                     baby.setHasMultiplyInThisDay(true);
                     this.setHasMultiplyInThisDay(true);
                     partner.setHasMultiplyInThisDay(true);

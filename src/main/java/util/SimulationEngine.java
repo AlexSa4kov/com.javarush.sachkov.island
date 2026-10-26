@@ -107,6 +107,8 @@ public class SimulationEngine {
         for (Location loc : locations) {
             for (Animal animal : loc.getAnimalsCopy()) {
                 if (animal.isAlive()) {
+                    animal.setHasMultiplyInThisDay(false);
+                    animal.setHasMovedInThisDay(false);
                     allAnimals.add(animal);
                 }
             }
