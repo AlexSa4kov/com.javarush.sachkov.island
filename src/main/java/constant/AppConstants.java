@@ -3,11 +3,11 @@ package main.java.constant;
 import java.util.Map;
 
 public interface AppConstants {
-    int ISLAND_HEIGHT = 2;
-    int ISLAND_WIDTH = 2;
-    int THREAD_POOL_SIZE = 8;
-    int STAGE_TIMEOUT_MS = 200;
-    int DAY_DELAY_MS = 1000;
+    int ISLAND_HEIGHT = 3;
+    int ISLAND_WIDTH = 3;
+    int THREAD_POOL_SIZE = 4;
+    int STAGE_TIMEOUT_MS = 20; //длительность одной стадии ЖЦ
+    int DAY_DELAY_MS = 500;  //длительность одного дня
 
     Map<String, Integer> ROW_INDEX = Map.ofEntries(
             Map.entry("Wolf", 0),

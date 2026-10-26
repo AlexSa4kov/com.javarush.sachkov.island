@@ -7,6 +7,7 @@ import main.java.model.organism.Plant;
 import main.java.model.organism.abstraction.Animal;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -15,7 +16,8 @@ public class SimulationEngine {
     private final Island island;
     private final ArrayList<Location> locations;
     private final ScheduledExecutorService scheduledPool;
-    private final ExecutorService executor;
+    private final ExecutorService animalWorkerPool;
+
     private int day;
 
     public SimulationEngine() {
@@ -23,107 +25,107 @@ public class SimulationEngine {
         this.island.populateIsland();
         this.locations = island.getLocationOfIsland();
         this.scheduledPool = Executors.newScheduledThreadPool(1);
-        this.executor = Executors.newFixedThreadPool(AppConstants.THREAD_POOL_SIZE);
+        this.animalWorkerPool = Executors.newFixedThreadPool(AppConstants.THREAD_POOL_SIZE);
         this.day = 0;
     }
 
     public void start() {
         System.out.println("Симуляция острова запущена!");
+
+        scheduledPool.scheduleAtFixedRate(
+                this::runOneDayCycle,
+                0,
+                AppConstants.DAY_DELAY_MS,
+                TimeUnit.MILLISECONDS
+        );
+    }
+
+    private void runOneDayCycle() {
         try {
-            while (!Thread.currentThread().isInterrupted()) {
-                day++;
-                System.out.println("\n========== НАЧАЛО ДНЯ " + day + " ==========");
+            day++;
+            System.out.println("\n========== НАЧАЛО ДНЯ " + day + " ==========");
 
-                runMoveTask();
-                resetFlagOfParticipation();
-                runEatTask();
-                resetFlagOfParticipation();
-                runMultiplyTask();
-                resetFlagOfParticipation();
-                runPlantGrowthTask();
+            List<Animal> activeAnimals = collectAllAliveAnimals();
+            Collections.shuffle(activeAnimals);
 
-                IslandInformation.printDayStatistics(day);
+            executeParallelAction(activeAnimals, Animal::move);
+            executeParallelAction(activeAnimals, Animal::eat);
+            executeParallelAction(activeAnimals, Animal::multiply);
 
-                Thread.sleep(AppConstants.DAY_DELAY_MS);
-            }
+            runPlantGrowth();
+
+            IslandInformation.printDayStatistics(day);
+
+        } catch (Exception e) {
+            System.err.println("Что-то пошло не так с днем...");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Обобщенный метод для параллельного выполнения фазы действий животных.
+     * Разбивает список животных на порции и отправляет в пул потоков animalWorkerPool.
+     */
+    private void executeParallelAction(List<Animal> animals, java.util.function.Consumer<Animal> action) {
+        List<Callable<Void>> tasks = new ArrayList<>();
+
+        int batchSize = Math.max(1, animals.size() / AppConstants.THREAD_POOL_SIZE);
+
+        for (int i = 0; i < animals.size(); i += batchSize) {
+            final List<Animal> subList = animals.subList(i, Math.min(i + batchSize, animals.size()));
+            tasks.add(() -> {
+                for (Animal animal : subList) {
+                    if (animal.isAlive()) {
+                        action.accept(animal);
+                    }
+                }
+                return null;
+            });
+        }
+
+        try {
+            animalWorkerPool.invokeAll(tasks, AppConstants.STAGE_TIMEOUT_MS, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
-            System.out.println("Симуляция была остановлена.");
-        } finally {
-            stop();
+            System.out.println("Фаза симуляции была прервана.");
+            Thread.currentThread().interrupt();
         }
     }
 
-    public void stop() {
-        if (!executor.isShutdown()) {
-            executor.shutdown();
-        }
-    }
-
-    private void runMoveTask() throws InterruptedException {
-        List<Callable<Void>> tasks = new ArrayList<>();
+    private void runPlantGrowth() {
         for (Location location : locations) {
-            tasks.add(() -> {
-                for (Animal animal : location.getAnimalsCopy()) {
-                    if (Thread.currentThread().isInterrupted()) break;
-                    animal.move();
-                }
-                return null;
-            });
+            for (Plant plant : location.getPlantsCopy()) {
+                plant.plantMultiply();
+            }
         }
-        executor.invokeAll(tasks, AppConstants.STAGE_TIMEOUT_MS, TimeUnit.MILLISECONDS);
     }
 
-    private void runEatTask() throws InterruptedException {
-        List<Callable<Void>> tasks = new ArrayList<>();
-        for (Location location : locations) {
-            tasks.add(() -> {
-                for (Animal animal : location.getAnimalsCopy()) {
-                    if (Thread.currentThread().isInterrupted()) break;
-                    animal.eat();
-                }
-                return null;
-            });
-        }
-        executor.invokeAll(tasks, AppConstants.STAGE_TIMEOUT_MS, TimeUnit.MILLISECONDS);
-    }
-
-    private void runMultiplyTask() throws InterruptedException {
-        List<Callable<Void>> tasks = new ArrayList<>();
-        for (Location location : locations) {
-            tasks.add(() -> {
-                for (Animal animal : location.getAnimalsCopy()) {
-                    if (Thread.currentThread().isInterrupted()) break;
-                    animal.multiply();
-                }
-                return null;
-            });
-        }
-        executor.invokeAll(tasks, AppConstants.STAGE_TIMEOUT_MS, TimeUnit.MILLISECONDS);
-    }
-
-    private void runPlantGrowthTask() throws InterruptedException {
-        List<Callable<Void>> tasks = new ArrayList<>();
-        for (Location location : locations) {
-            tasks.add(() -> {
-                for (Plant plant : location.getPlantsCopy()) {
-                    if (Thread.currentThread().isInterrupted()) break;
-                    plant.plantMultiply();
-                }
-                return null;
-            });
-        }
-        executor.invokeAll(tasks, AppConstants.STAGE_TIMEOUT_MS, TimeUnit.MILLISECONDS);
-    }
-
-    public void resetFlagOfParticipation() {
-        ArrayList<Location> locations = Island.getInstance().getLocationOfIsland();
+    private List<Animal> collectAllAliveAnimals() {
+        List<Animal> allAnimals = new ArrayList<>();
         for (Location loc : locations) {
             for (Animal animal : loc.getAnimalsCopy()) {
                 if (animal.isAlive()) {
-                    animal.setParticipation(false); // Готовим к следующему дню
+                    allAnimals.add(animal);
                 }
             }
         }
+        return allAnimals;
     }
 
+    public void stop() {
+        System.out.println("Остановка симуляции...");
+        scheduledPool.shutdown();
+        animalWorkerPool.shutdown();
+        try {
+            if (!scheduledPool.awaitTermination(2, TimeUnit.SECONDS)) {
+                scheduledPool.shutdownNow();
+            }
+            if (!animalWorkerPool.awaitTermination(2, TimeUnit.SECONDS)) {
+                animalWorkerPool.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            scheduledPool.shutdownNow();
+            animalWorkerPool.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
+    }
 }
