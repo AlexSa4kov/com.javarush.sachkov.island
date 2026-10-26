@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.*;
+import java.util.function.Consumer;
 
 public class SimulationEngine {
 
@@ -68,7 +69,7 @@ public class SimulationEngine {
         }
     }
 
-    private void executeParallelAction(List<Animal> animals, java.util.function.Consumer<Animal> action) {
+    private void executeParallelAction(List<Animal> animals, Consumer<Animal> action) {
         List<Callable<Void>> tasks = new ArrayList<>();
 
         int batchSize = Math.max(1, animals.size() / AppConstants.THREAD_POOL_SIZE);

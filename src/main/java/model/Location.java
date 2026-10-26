@@ -63,11 +63,16 @@ public class Location {
     }
 
     public  void addPlant(Plant plant) {
-        plant.setLocation(this);
-        if (plants.size() < plant.getLimitInArea()) {
-            plants.add(plant);
+        if (plant == null) {
+            return;
+        }
+
+        if (this.plants.size() < plant.getLimitInArea()) {
+            plant.setLocation(this);
+            this.plants.add(plant);
         }
     }
+
 
     public Plant getPlantToEat() {
         return plants.isEmpty() ? null : plants.get(0);
