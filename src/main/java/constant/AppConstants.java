@@ -3,9 +3,9 @@ package main.java.constant;
 import java.util.Map;
 
 public interface AppConstants {
-    int ISLAND_HEIGHT = 100;
-    int ISLAND_WIDTH = 20;
-    int THREAD_POOL_SIZE = 8;
+    int ISLAND_HEIGHT = 100; // высота острова
+    int ISLAND_WIDTH = 20; // ширина острова
+    int THREAD_POOL_SIZE = 4; // количество потоков
     int STAGE_TIMEOUT_MS = 20; //длительность одной стадии ЖЦ
     int DAY_DELAY_MS = 100;  //длительность одного дня
 

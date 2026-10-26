@@ -46,7 +46,7 @@ public class SimulationEngine {
     private void runOneDayCycle() {
         try {
             day++;
-            System.out.println("\n========== НАЧАЛО ДНЯ " + day + " ==========");
+            System.out.println("\n----------НАЧАЛО ДНЯ " + day + "----------");
 
             List<Animal> activeAnimals = lifecycleService.prepareAndCollectAliveAnimals();
             Collections.shuffle(activeAnimals);
@@ -61,7 +61,6 @@ public class SimulationEngine {
 
             if (IslandUtils.checkIfAllAnimalsDead(island)) {
                 System.out.println("Все животные вымерли.");
-                System.out.println("Автоматическая остановка пулов потоков...");
                 this.stop();
             }
 

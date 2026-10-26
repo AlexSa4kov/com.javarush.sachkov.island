@@ -87,8 +87,6 @@ public abstract class Organism {
         this.location = location;
     }
 
-
-
     public void die() {
         this.setAlive(false);
     }

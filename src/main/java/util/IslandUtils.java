@@ -58,6 +58,41 @@ public class IslandUtils {
         return true;
     }
 
+    public static void populationOfLocation(Location location) {
+        ThreadLocalRandom random = ThreadLocalRandom.current();
+
+        int plantsCount = random.nextInt(20, 100);
+        for (int i = 0; i < plantsCount; i++) {
+            location.addPlant(new Plant());
+        }
+
+        for (SpawnRule rule : SPAWN_RULES.values()) {
+            int count = random.nextInt(rule.getMin(), rule.getMax() + 1);
+
+            for (int i = 0; i < count; i++) {
+                location.addAnimal(rule.getFactory().get());
+            }
+        }
+    }
+
+    private static final Map<String, SpawnRule> SPAWN_RULES = Map.ofEntries(
+            Map.entry("Wolf", new IslandUtils.SpawnRule(Wolf::new, 1, 15)),
+            Map.entry("Anaconda", new IslandUtils.SpawnRule(Anaconda::new, 0, 10)),
+            Map.entry("Fox", new IslandUtils.SpawnRule(Fox::new, 1, 15)),
+            Map.entry("Bear", new IslandUtils.SpawnRule(Bear::new, 0, 5)),
+            Map.entry("Eagle", new IslandUtils.SpawnRule(Eagle::new, 0, 10)),
+            Map.entry("Horse", new IslandUtils.SpawnRule(Horse::new, 0, 10)),
+            Map.entry("Deer", new IslandUtils.SpawnRule(Deer::new, 0, 10)),
+            Map.entry("Rabbit", new IslandUtils.SpawnRule(Rabbit::new, 2, 150)),
+            Map.entry("Mouse", new IslandUtils.SpawnRule(Mouse::new, 2, 250)),
+            Map.entry("Goat", new IslandUtils.SpawnRule(Goat::new, 0, 70)),
+            Map.entry("Sheep", new IslandUtils.SpawnRule(Sheep::new, 0, 70)),
+            Map.entry("Boar", new IslandUtils.SpawnRule(Boar::new, 0, 25)),
+            Map.entry("Buffalo", new IslandUtils.SpawnRule(Buffalo::new, 0, 10)),
+            Map.entry("Duck", new IslandUtils.SpawnRule(Duck::new, 1, 100)),
+            Map.entry("Caterpillar", new IslandUtils.SpawnRule(Caterpillar::new, 100, 150))
+    );
+
     private static class SpawnRule {
         private final Supplier<Animal> factory;
         private final int min;
@@ -81,40 +116,4 @@ public class IslandUtils {
             return max;
         }
     }
-
-    private static final Map<String, SpawnRule> SPAWN_RULES = Map.ofEntries(
-            Map.entry("Wolf", new SpawnRule(Wolf::new, 1, 15)),
-            Map.entry("Anaconda", new SpawnRule(Anaconda::new, 0, 10)),
-            Map.entry("Fox", new SpawnRule(Fox::new, 1, 15)),
-            Map.entry("Bear", new SpawnRule(Bear::new, 0, 5)),
-            Map.entry("Eagle", new SpawnRule(Eagle::new, 0, 10)),
-            Map.entry("Horse", new SpawnRule(Horse::new, 0, 10)),
-            Map.entry("Deer", new SpawnRule(Deer::new, 0, 10)),
-            Map.entry("Rabbit", new SpawnRule(Rabbit::new, 2, 150)),
-            Map.entry("Mouse", new SpawnRule(Mouse::new, 2, 250)),
-            Map.entry("Goat", new SpawnRule(Goat::new, 0, 70)),
-            Map.entry("Sheep", new SpawnRule(Sheep::new, 0, 70)),
-            Map.entry("Boar", new SpawnRule(Boar::new, 0, 25)),
-            Map.entry("Buffalo", new SpawnRule(Buffalo::new, 0, 10)),
-            Map.entry("Duck", new SpawnRule(Duck::new, 1, 100)),
-            Map.entry("Caterpillar", new SpawnRule(Caterpillar::new, 100, 150))
-    );
-
-    public static void populationOfLocation(Location location) {
-        ThreadLocalRandom random = ThreadLocalRandom.current();
-
-        int plantsCount = random.nextInt(20, 200);
-        for (int i = 0; i < plantsCount; i++) {
-            location.addPlant(new Plant());
-        }
-
-        for (SpawnRule rule : SPAWN_RULES.values()) {
-            int count = random.nextInt(rule.getMin(), rule.getMax() + 1);
-
-            for (int i = 0; i < count; i++) {
-                location.addAnimal(rule.getFactory().get());
-            }
-        }
-    }
-
 }

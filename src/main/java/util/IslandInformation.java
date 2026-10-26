@@ -36,6 +36,21 @@ public class IslandInformation {
                 System.out.println(entry.getKey() + " - " + entry.getValue());
             }
         }
-        System.out.println("=========================================");
+        System.out.println("<--------------------------------------------->");
+    }
+
+    public static void printStartInformation() {
+        System.out.println("Добро пожаловать в симуляцию острова....");
+        System.out.println("1. Запуск с дефолтными настройками:\n" +
+                "    высота острова = 100;\n" +
+                "    ширина острова = 20;\n" +
+                "    количество потоков = 8;\n" +
+                "    длинна стадии жизненного цикла = 20мс;\n" +
+                "    длительность одного дня = 100мс;");
+
+        System.out.println("2. Ручная настройка параметров симуляции" + " -------> пока не доступна, прошу прощения =/");
+        System.out.println("Однако при желании, Вы можете побаловаться в настройках в package main.java.constant;");
+        System.out.println("Жизнь начнется через 5 секунд....");
+
     }
 }
