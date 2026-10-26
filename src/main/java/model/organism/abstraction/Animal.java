@@ -16,6 +16,7 @@ public abstract class Animal extends Organism {
     protected double satietyLimitPerEating;
     protected boolean hasMovedInThisDay = false;
     protected boolean hasMultiplyInThisDay = false;
+    protected boolean hasEatInThisDay = false;
 
     public Animal(
             String name,
@@ -43,6 +44,14 @@ public abstract class Animal extends Organism {
         this.satietyLimitPerEating = satietyLimitPerEating;
     }
 
+    public double getCurrentSatiety() {
+        return currentSatiety;
+    }
+
+    public void setCurrentSatiety(double currentSatiety) {
+        this.currentSatiety = currentSatiety;
+    }
+
     public boolean isHasMovedInThisDay() {
         return hasMovedInThisDay;
     }
@@ -57,6 +66,14 @@ public abstract class Animal extends Organism {
 
     public void setHasMultiplyInThisDay(boolean hasMultiplyInThisDay) {
         this.hasMultiplyInThisDay = hasMultiplyInThisDay;
+    }
+
+    public boolean isHasEatInThisDay() {
+        return hasEatInThisDay;
+    }
+
+    public void setHasEatInThisDay(boolean hasEatInThisDay) {
+        this.hasEatInThisDay = hasEatInThisDay;
     }
 
     protected abstract Animal createBaby();
@@ -117,28 +134,42 @@ public abstract class Animal extends Organism {
     }
 
     public void eat() {
-        if (!isAlive || location == null) return;
+        if (!isAlive || location == null || hasEatInThisDay) {
+            return;
+        }
 
         if (this instanceof Herbivore) {
-            Plant plant = location.getPlantToEat();
-            if (plant != null && IslandUtils.canEat(this, plant)) {
-                if (IslandUtils.isEat(this, plant)) {
-                    location.removePlant(plant);
-                    this.currentSatiety += currentSatiety * 0.2;
-                    return;
+            synchronized (location) {
+                Plant plant = location.getPlantToEat();
+                if (plant != null && plant.isAlive() && IslandUtils.canEat(this, plant)) {
+                    if (IslandUtils.isEat(this, plant)) {
+                        plant.die();
+                        location.removePlant(plant);
+                        this.currentSatiety = Math.min(this.satietyLimitPerEating, this.currentSatiety + plant.getWeight());
+                        this.hasEatInThisDay = true; // Помечаем, что животное сыто на сегодня
+                        return;
+                    }
                 }
             }
         }
 
         if (this instanceof Predator) {
             ArrayList<Animal> animalsCopy = location.getAnimalsCopy();
-            animalsCopy.remove(this);
+
             for (Animal target : animalsCopy) {
                 if (target != this && target.isAlive() && IslandUtils.canEat(this, target)) {
-                    if (IslandUtils.isEat(this, target)) {
-                        target.die();
-                        this.currentSatiety += currentSatiety * 0.2;
-                        break;
+                    synchronized (location) {
+                        if (target.isAlive() && this.isAlive() && !this.hasEatInThisDay) {
+
+                            if (IslandUtils.isEat(this, target)) {
+                                target.die();
+                                location.removeAnimal(target);
+
+                                this.currentSatiety = Math.min(this.satietyLimitPerEating, this.currentSatiety + target.getWeight());
+                                this.hasEatInThisDay = true;
+                                break;
+                            }
+                        }
                     }
                 }
             }

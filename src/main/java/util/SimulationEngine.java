@@ -109,6 +109,7 @@ public class SimulationEngine {
                 if (animal.isAlive()) {
                     animal.setHasMultiplyInThisDay(false);
                     animal.setHasMovedInThisDay(false);
+                    animal.setHasEatInThisDay(false);
                     allAnimals.add(animal);
                 }
             }
