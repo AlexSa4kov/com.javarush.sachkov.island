@@ -69,8 +69,6 @@ public abstract class Animal extends Organism {
             return;
         }
 
-        // выбор направления движения животного в пределах своих полномочийй
-        // вверх вниз влево вправо
         for (int i = 0; i < steps; i++) {
             int direction = ThreadLocalRandom.current().nextInt(4);
             switch (direction) {
@@ -92,21 +90,24 @@ public abstract class Animal extends Organism {
         Location targetLocation = Island.location[currentX][currentY];
 
         if (IslandUtils.hasCapacityForAnimal(targetLocation, this)) {
-            synchronized (targetLocation) {
-                if (this.location != null) {
-                    Location oldLocation = this.location;
+            Location oldLocation = this.location;
+            if (oldLocation != null && IslandUtils.hasCapacityForAnimal(targetLocation, this)) {
 
-                    oldLocation.removeAnimal(this);
-                    targetLocation.addAnimal(this);
-                    this.setParticipation(true);
+                Location firstLock = oldLocation.hashCode() < targetLocation.hashCode() ? oldLocation : targetLocation;
+                Location secondLock = firstLock == oldLocation ? targetLocation : oldLocation;
+
+                synchronized (firstLock) {
+                    synchronized (secondLock) {
+                        if (this.location == oldLocation && IslandUtils.hasCapacityForAnimal(targetLocation, this)) {
+                            oldLocation.removeAnimal(this);
+                            targetLocation.addAnimal(this);
+                        }
+                    }
                 }
             }
+
         }
     }
-
-    // рассмотреть вопрос реализации показателей: вес, сытость (сытость текущая,
-    // сытость максимальная, максимальный вес.
-    // пока увеличиваем сытость на 20%
 
     public void eat() {
         if (!isAlive || location == null) return;

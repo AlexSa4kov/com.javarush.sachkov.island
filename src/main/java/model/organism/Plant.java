@@ -25,7 +25,7 @@ public class Plant extends Organism {
     }
 
     public void plantMultiply() {
-        if (!isAlive) {
+        if (!isAlive || location == null) {
             return;
         }
 

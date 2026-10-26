@@ -44,9 +44,7 @@ public class Location {
     public ArrayList<Animal> getAnimalsCopy() {
         return new ArrayList<>(animals);
     }
-    public ArrayList<Plant> getPlantsCopy() {
-        return new ArrayList<>(plants);
-    }
+    public ArrayList<Plant> getPlantsCopy() { return new ArrayList<>(plants); }
 
     public int getCountOfCurrentAnimal(String currentAnimal) {
         int count = 0;
@@ -68,6 +66,7 @@ public class Location {
             plants.add(plant);
         }
     }
+
 
     public Plant getPlantToEat() {
         return plants.isEmpty() ? null : plants.get(0);
