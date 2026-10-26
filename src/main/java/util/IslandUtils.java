@@ -47,39 +47,39 @@ public class IslandUtils {
 
     public static void populationOfLocation(Location location) {
 
-        int plantsCount = ThreadLocalRandom.current().nextInt(1, 200);
+        int plantsCount = ThreadLocalRandom.current().nextInt(100, 200);
         for (int i = 0; i < plantsCount; i++) {
             location.addPlant(new Plant());
         }
-        int wolves = ThreadLocalRandom.current().nextInt(1, 5);
+        int wolves = ThreadLocalRandom.current().nextInt(1, 10);
         for (int i = 0; i < wolves; i++) {
             location.addAnimal(new Wolf());
         }
-        int anaconds = ThreadLocalRandom.current().nextInt(0, 5);
+        int anaconds = ThreadLocalRandom.current().nextInt(0, 10);
         for (int i = 0; i < anaconds; i++) {
             location.addAnimal(new Anaconda());
         }
-        int foxes = ThreadLocalRandom.current().nextInt(1, 5);
+        int foxes = ThreadLocalRandom.current().nextInt(1, 10);
         for (int i = 0; i < foxes; i++) {
             location.addAnimal(new Fox());
         }
-        int bears = ThreadLocalRandom.current().nextInt(0, 5);
+        int bears = ThreadLocalRandom.current().nextInt(0, 10);
         for (int i = 0; i < bears; i++) {
             location.addAnimal(new Bear());
         }
-        int eagles = ThreadLocalRandom.current().nextInt(0, 5);
+        int eagles = ThreadLocalRandom.current().nextInt(0, 10);
         for (int i = 0; i < eagles; i++) {
             location.addAnimal(new Eagle());
         }
-        int horses = ThreadLocalRandom.current().nextInt(0, 5);
+        int horses = ThreadLocalRandom.current().nextInt(0, 10);
         for (int i = 0; i < horses; i++) {
             location.addAnimal(new Horse());
         }
-        int deer = ThreadLocalRandom.current().nextInt(0, 5);
+        int deer = ThreadLocalRandom.current().nextInt(0, 10);
         for (int i = 0; i < deer; i++) {
             location.addAnimal(new Deer());
         }
-        int rabbits = ThreadLocalRandom.current().nextInt(2, 5);
+        int rabbits = ThreadLocalRandom.current().nextInt(2, 10);
         for (int i = 0; i < rabbits; i++) {
             location.addAnimal(new Rabbit());
         }

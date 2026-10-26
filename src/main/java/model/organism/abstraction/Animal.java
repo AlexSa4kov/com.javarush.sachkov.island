@@ -15,7 +15,7 @@ public abstract class Animal extends Organism {
     protected double currentSatiety;
     protected double satietyLimitPerEating;
     protected boolean isParticipation = false;
-
+    protected boolean hasMultiplyInThisDay = false;
 
     public Animal(
             String name,
@@ -49,6 +49,14 @@ public abstract class Animal extends Organism {
 
     public void setParticipation(boolean participation) {
         isParticipation = participation;
+    }
+
+    public boolean isHasMultiplyInThisDay() {
+        return hasMultiplyInThisDay;
+    }
+
+    public void setHasMultiplyInThisDay(boolean hasMultiplyInThisDay) {
+        this.hasMultiplyInThisDay = hasMultiplyInThisDay;
     }
 
     protected abstract Animal createBaby();
@@ -138,18 +146,37 @@ public abstract class Animal extends Organism {
 
     public void multiply() {
 
-        if (!isAlive || location == null) return;
+        if (!isAlive || location == null || hasMultiplyInThisDay) {
+            return;
+        }
 
-        if (IslandUtils.hasCapacityForAnimal(location, this)) {
-            int countOfPopulation = location.getCountOfCurrentAnimal(this.getClass().getSimpleName());
-            Animal baby = null;
-            if (countOfPopulation >= 2) {
-                baby = this.createBaby();
+        synchronized (location) {
+            if (hasMultiplyInThisDay || !IslandUtils.hasCapacityForAnimal(location, this)) {
+                return;
             }
 
-            if (baby != null) {
-                location.addAnimal(baby);
-                baby.setLocation(location);
+            Animal partner = null;
+            for (Animal potentialPartner : location.getAnimalsCopy()) {
+                if (potentialPartner != this
+                        && potentialPartner.isAlive()
+                        && potentialPartner.getClass().getSimpleName().equals(this.getClass().getSimpleName())
+                        && !potentialPartner.isHasMultiplyInThisDay()) {
+
+                    partner = potentialPartner;
+                    break;
+                }
+            }
+
+            if (partner != null) {
+                Animal baby = this.createBaby();
+                if (baby != null) {
+                    location.addAnimal(baby);
+                    baby.setLocation(location);
+                    baby.setParticipation(true);
+                    baby.setHasMultiplyInThisDay(true);
+                    this.setHasMultiplyInThisDay(true);
+                    partner.setHasMultiplyInThisDay(true);
+                }
             }
         }
     }

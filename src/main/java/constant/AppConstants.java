@@ -3,8 +3,8 @@ package main.java.constant;
 import java.util.Map;
 
 public interface AppConstants {
-    int ISLAND_HEIGHT = 1;
-    int ISLAND_WIDTH = 1;
+    int ISLAND_HEIGHT = 3;
+    int ISLAND_WIDTH = 3;
     int THREAD_POOL_SIZE = 4;
     int STAGE_TIMEOUT_MS = 20; //длительность одной стадии ЖЦ
     int DAY_DELAY_MS = 500;  //длительность одного дня
