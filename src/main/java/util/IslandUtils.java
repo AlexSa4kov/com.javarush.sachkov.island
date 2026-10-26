@@ -1,6 +1,7 @@
 package main.java.util;
 
 import main.java.constant.AppConstants;
+import main.java.model.Island;
 import main.java.model.Location;
 import main.java.model.organism.Caterpillar;
 import main.java.model.organism.Plant;
@@ -111,5 +112,16 @@ public class IslandUtils {
         for (int i = 0; i < caterpillars; i++) {
             location.addAnimal(new Caterpillar());
         }
+    }
+
+    public static boolean checkIfAllAnimalsDead(Island island) {
+        for (Location loc : island.getLocationOfIsland()) {
+            for (Animal animal : loc.getAnimalsCopy()) {
+                if (animal.isAlive()) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

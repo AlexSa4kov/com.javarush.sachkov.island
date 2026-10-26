@@ -56,16 +56,18 @@ public class SimulationEngine {
 
             IslandInformation.printDayStatistics(day);
 
+            if (IslandUtils.checkIfAllAnimalsDead(island)) {
+                System.out.println("Все животные вымерли.");
+                System.out.println("Автоматическая остановка пулов потоков...");
+                this.stop();
+            }
+
         } catch (Exception e) {
             System.err.println("Что-то пошло не так с днем...");
             e.printStackTrace();
         }
     }
 
-    /**
-     * Обобщенный метод для параллельного выполнения фазы действий животных.
-     * Разбивает список животных на порции и отправляет в пул потоков animalWorkerPool.
-     */
     private void executeParallelAction(List<Animal> animals, java.util.function.Consumer<Animal> action) {
         List<Callable<Void>> tasks = new ArrayList<>();
 
