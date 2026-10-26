@@ -18,6 +18,7 @@ public class SimulationEngine {
     private final ArrayList<Location> locations;
     private final ScheduledExecutorService scheduledPool;
     private final ExecutorService animalWorkerPool;
+    private final IslandLifecycleService lifecycleService;
 
     private int day;
 
@@ -27,6 +28,7 @@ public class SimulationEngine {
         this.locations = island.getLocationOfIsland();
         this.scheduledPool = Executors.newScheduledThreadPool(1);
         this.animalWorkerPool = Executors.newFixedThreadPool(AppConstants.THREAD_POOL_SIZE);
+        this.lifecycleService = new IslandLifecycleService();
         this.day = 0;
     }
 
@@ -46,7 +48,7 @@ public class SimulationEngine {
             day++;
             System.out.println("\n========== НАЧАЛО ДНЯ " + day + " ==========");
 
-            List<Animal> activeAnimals = collectAllAliveAnimals();
+            List<Animal> activeAnimals = lifecycleService.prepareAndCollectAliveAnimals();
             Collections.shuffle(activeAnimals);
 
             executeParallelAction(activeAnimals, Animal::move);
@@ -100,21 +102,6 @@ public class SimulationEngine {
                 plant.plantMultiply();
             }
         }
-    }
-
-    private List<Animal> collectAllAliveAnimals() {
-        List<Animal> allAnimals = new ArrayList<>();
-        for (Location loc : locations) {
-            for (Animal animal : loc.getAnimalsCopy()) {
-                if (animal.isAlive()) {
-                    animal.setHasEatInThisDay(false);
-                    animal.setHasMultiplyInThisDay(false);
-                    animal.setHasMovedInThisDay(false);
-                    allAnimals.add(animal);
-                }
-            }
-        }
-        return allAnimals;
     }
 
     public void stop() {

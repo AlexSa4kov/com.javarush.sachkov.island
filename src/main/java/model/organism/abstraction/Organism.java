@@ -90,6 +90,6 @@ public abstract class Organism {
 
 
     public void die() {
-        this.isAlive = false;
+        this.setAlive(false);
     }
 }

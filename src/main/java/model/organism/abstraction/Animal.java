@@ -145,8 +145,8 @@ public abstract class Animal extends Organism {
                     if (IslandUtils.isEat(this, plant)) {
                         plant.die();
                         location.removePlant(plant);
-                        this.currentSatiety = Math.min(this.satietyLimitPerEating, this.currentSatiety + plant.getWeight());
-                        this.hasEatInThisDay = true; // Помечаем, что животное сыто на сегодня
+                        this.setCurrentSatiety(Math.min(this.satietyLimitPerEating, this.getCurrentSatiety() + plant.getWeight()));
+                        this.hasEatInThisDay = true;
                         return;
                     }
                 }
@@ -165,7 +165,7 @@ public abstract class Animal extends Organism {
                                 target.die();
                                 location.removeAnimal(target);
 
-                                this.currentSatiety = Math.min(this.satietyLimitPerEating, this.currentSatiety + target.getWeight());
+                                this.setCurrentSatiety(Math.min(this.satietyLimitPerEating, this.getCurrentSatiety() + target.getWeight()));
                                 this.hasEatInThisDay = true;
                                 break;
                             }

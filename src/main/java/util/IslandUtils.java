@@ -10,7 +10,9 @@ import main.java.model.organism.abstraction.Organism;
 import main.java.model.organism.herbivore.*;
 import main.java.model.organism.predator.*;
 
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.Supplier;
 
 public class IslandUtils {
 
@@ -45,75 +47,6 @@ public class IslandUtils {
         return ThreadLocalRandom.current().nextInt(100) < rate;
     }
 
-    public static void populationOfLocation(Location location) {
-
-        int plantsCount = ThreadLocalRandom.current().nextInt(100, 200);
-        for (int i = 0; i < plantsCount; i++) {
-            location.addPlant(new Plant());
-        }
-        int wolves = ThreadLocalRandom.current().nextInt(1, 10);
-        for (int i = 0; i < wolves; i++) {
-            location.addAnimal(new Wolf());
-        }
-        int anaconds = ThreadLocalRandom.current().nextInt(0, 10);
-        for (int i = 0; i < anaconds; i++) {
-            location.addAnimal(new Anaconda());
-        }
-        int foxes = ThreadLocalRandom.current().nextInt(1, 10);
-        for (int i = 0; i < foxes; i++) {
-            location.addAnimal(new Fox());
-        }
-        int bears = ThreadLocalRandom.current().nextInt(0, 10);
-        for (int i = 0; i < bears; i++) {
-            location.addAnimal(new Bear());
-        }
-        int eagles = ThreadLocalRandom.current().nextInt(0, 10);
-        for (int i = 0; i < eagles; i++) {
-            location.addAnimal(new Eagle());
-        }
-        int horses = ThreadLocalRandom.current().nextInt(0, 10);
-        for (int i = 0; i < horses; i++) {
-            location.addAnimal(new Horse());
-        }
-        int deer = ThreadLocalRandom.current().nextInt(0, 10);
-        for (int i = 0; i < deer; i++) {
-            location.addAnimal(new Deer());
-        }
-        int rabbits = ThreadLocalRandom.current().nextInt(2, 10);
-        for (int i = 0; i < rabbits; i++) {
-            location.addAnimal(new Rabbit());
-        }
-        int mice = ThreadLocalRandom.current().nextInt(2, 5);
-        for (int i = 0; i < mice; i++) {
-            location.addAnimal(new Mouse());
-        }
-        int goats = ThreadLocalRandom.current().nextInt(0, 5);
-        for (int i = 0; i < goats; i++) {
-            location.addAnimal(new Goat());
-        }
-        int sheep = ThreadLocalRandom.current().nextInt(0, 5);
-        for (int i = 0; i < sheep; i++) {
-            location.addAnimal(new Sheep());
-        }
-        int boars = ThreadLocalRandom.current().nextInt(0, 5);
-        for (int i = 0; i < boars; i++) {
-            location.addAnimal(new Boar());
-        }
-        int buffaloes = ThreadLocalRandom.current().nextInt(0, 5);
-        for (int i = 0; i < buffaloes; i++) {
-            location.addAnimal(new Buffalo());
-        }
-        int ducks = ThreadLocalRandom.current().nextInt(1, 5);
-        for (int i = 0; i < ducks; i++) {
-            location.addAnimal(new Duck());
-        }
-        int caterpillars = ThreadLocalRandom.current().nextInt(1, 5);
-        for (int i = 0; i < caterpillars; i++) {
-            location.addAnimal(new Caterpillar());
-        }
-    }
-
-
     public static boolean checkIfAllAnimalsDead(Island island) {
         for (Location loc : island.getLocationOfIsland()) {
             for (Animal animal : loc.getAnimalsCopy()) {
@@ -124,4 +57,64 @@ public class IslandUtils {
         }
         return true;
     }
+
+    private static class SpawnRule {
+        private final Supplier<Animal> factory;
+        private final int min;
+        private final int max;
+
+        public SpawnRule(Supplier<Animal> factory, int min, int max) {
+            this.factory = factory;
+            this.min = min;
+            this.max = max;
+        }
+
+        public Supplier<Animal> getFactory() {
+            return factory;
+        }
+
+        public int getMin() {
+            return min;
+        }
+
+        public int getMax() {
+            return max;
+        }
+    }
+
+    private static final Map<String, SpawnRule> SPAWN_RULES = Map.ofEntries(
+            Map.entry("Wolf", new SpawnRule(Wolf::new, 1, 15)),
+            Map.entry("Anaconda", new SpawnRule(Anaconda::new, 0, 10)),
+            Map.entry("Fox", new SpawnRule(Fox::new, 1, 15)),
+            Map.entry("Bear", new SpawnRule(Bear::new, 0, 5)),
+            Map.entry("Eagle", new SpawnRule(Eagle::new, 0, 10)),
+            Map.entry("Horse", new SpawnRule(Horse::new, 0, 10)),
+            Map.entry("Deer", new SpawnRule(Deer::new, 0, 10)),
+            Map.entry("Rabbit", new SpawnRule(Rabbit::new, 2, 150)),
+            Map.entry("Mouse", new SpawnRule(Mouse::new, 2, 250)),
+            Map.entry("Goat", new SpawnRule(Goat::new, 0, 70)),
+            Map.entry("Sheep", new SpawnRule(Sheep::new, 0, 70)),
+            Map.entry("Boar", new SpawnRule(Boar::new, 0, 25)),
+            Map.entry("Buffalo", new SpawnRule(Buffalo::new, 0, 10)),
+            Map.entry("Duck", new SpawnRule(Duck::new, 1, 100)),
+            Map.entry("Caterpillar", new SpawnRule(Caterpillar::new, 100, 150))
+    );
+
+    public static void populationOfLocation(Location location) {
+        ThreadLocalRandom random = ThreadLocalRandom.current();
+
+        int plantsCount = random.nextInt(20, 200);
+        for (int i = 0; i < plantsCount; i++) {
+            location.addPlant(new Plant());
+        }
+
+        for (SpawnRule rule : SPAWN_RULES.values()) {
+            int count = random.nextInt(rule.getMin(), rule.getMax() + 1);
+
+            for (int i = 0; i < count; i++) {
+                location.addAnimal(rule.getFactory().get());
+            }
+        }
+    }
+
 }
