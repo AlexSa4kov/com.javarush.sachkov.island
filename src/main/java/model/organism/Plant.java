@@ -25,14 +25,13 @@ public class Plant extends Organism {
     }
 
     public void plantMultiply() {
-        if (!isAlive || location == null) {
+        if (!isAlive) {
             return;
         }
 
         if (location.getCountOfPlant() < limitInArea) {
             Plant newPlant = new Plant();
             location.addPlant(newPlant);
-            newPlant.setLocation(location);
         }
     }
 }

@@ -92,7 +92,7 @@ public abstract class Animal extends Organism {
         Location targetLocation = Island.location[currentX][currentY];
 
         if (IslandUtils.hasCapacityForAnimal(targetLocation, this)) {
-            synchronized (this) {
+            synchronized (targetLocation) {
                 if (this.location != null) {
                     Location oldLocation = this.location;
 
@@ -140,7 +140,7 @@ public abstract class Animal extends Organism {
     public void multiply() {
         if (!isAlive || location == null) return;
 
-        if (!IslandUtils.hasCapacityForAnimal(location, this)) {
+        if (IslandUtils.hasCapacityForAnimal(location, this)) {
             int countOfPopulation = location.getCountOfCurrentAnimal(this.getClass().getSimpleName());
             if (countOfPopulation >= 2) {
                 Animal baby = switch (this.getClass().getSimpleName()) {

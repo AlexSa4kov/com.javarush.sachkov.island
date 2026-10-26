@@ -47,7 +47,7 @@ public class IslandUtils {
     //рандомная инициализация каждого подвида
     public static void populationOfLocation(Location location) {
 
-        int plantsCount = ThreadLocalRandom.current().nextInt(20, 150);
+        int plantsCount = ThreadLocalRandom.current().nextInt(20, 200);
         for (int i = 0; i < plantsCount; i++) {
             location.addPlant(new Plant());
         }
@@ -107,7 +107,7 @@ public class IslandUtils {
         for (int i = 0; i < ducks; i++) {
             location.addAnimal(new Duck());
         }
-        int caterpillars = ThreadLocalRandom.current().nextInt(100, 500);
+        int caterpillars = ThreadLocalRandom.current().nextInt(100, 150);
         for (int i = 0; i < caterpillars; i++) {
             location.addAnimal(new Caterpillar());
         }
