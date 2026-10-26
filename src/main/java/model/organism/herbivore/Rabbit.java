@@ -1,5 +1,6 @@
 package main.java.model.organism.herbivore;
 
+import main.java.model.organism.abstraction.Animal;
 import main.java.model.organism.abstraction.Herbivore;
 
 public class Rabbit extends Herbivore {
@@ -25,5 +26,10 @@ public class Rabbit extends Herbivore {
                 "name='" + name + '\'' +
                 ", icon='" + icon + '\'' +
                 '}';
+    }
+
+    @Override
+    protected Animal createBaby() {
+        return new Rabbit();
     }
 }

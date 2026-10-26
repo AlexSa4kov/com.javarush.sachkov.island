@@ -26,4 +26,9 @@ public class Caterpillar extends Animal {
                 ", icon='" + icon + '\'' +
                 '}';
     }
+
+    @Override
+    protected Animal createBaby() {
+        return new Caterpillar();
+    }
 }

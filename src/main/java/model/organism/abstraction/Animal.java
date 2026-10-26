@@ -3,10 +3,7 @@ package main.java.model.organism.abstraction;
 import main.java.constant.AppConstants;
 import main.java.model.Island;
 import main.java.model.Location;
-import main.java.model.organism.Caterpillar;
 import main.java.model.organism.Plant;
-import main.java.model.organism.herbivore.*;
-import main.java.model.organism.predator.*;
 import main.java.util.IslandUtils;
 
 import java.util.ArrayList;
@@ -17,8 +14,7 @@ public abstract class Animal extends Organism {
     protected int moveInTik;
     protected double currentSatiety;
     protected double satietyLimitPerEating;
-    protected boolean isParticipation  = false;
-
+    protected boolean isParticipation = false;
 
 
     public Animal(
@@ -54,6 +50,8 @@ public abstract class Animal extends Organism {
     public void setParticipation(boolean participation) {
         isParticipation = participation;
     }
+
+    protected abstract Animal createBaby();
 
     public void move() {
         if (!isAlive || location == null || moveInTik == 0 || !isParticipation) {
@@ -139,34 +137,19 @@ public abstract class Animal extends Organism {
     }
 
     public void multiply() {
+
         if (!isAlive || location == null) return;
 
         if (IslandUtils.hasCapacityForAnimal(location, this)) {
             int countOfPopulation = location.getCountOfCurrentAnimal(this.getClass().getSimpleName());
+            Animal baby = null;
             if (countOfPopulation >= 2) {
-                Animal baby = switch (this.getClass().getSimpleName()) {
-                    case "Wolf" -> new Wolf();
-                    case "Anaconda" -> new Anaconda();
-                    case "Fox" -> new Fox();
-                    case "Bear" -> new Bear();
-                    case "Eagle" -> new Eagle();
-                    case "Horse" -> new Horse();
-                    case "Deer" -> new Deer();
-                    case "Rabbit" -> new Rabbit();
-                    case "Mouse" -> new Mouse();
-                    case "Goat" -> new Goat();
-                    case "Sheep" -> new Sheep();
-                    case "Boar" -> new Boar();
-                    case "Buffalo" -> new Buffalo();
-                    case "Duck" -> new Duck();
-                    case "Caterpillar" -> new Caterpillar();
-                    default -> null;
-                };
+                baby = this.createBaby();
+            }
 
-                if (baby != null) {
-                    location.addAnimal(baby);
-                    baby.setLocation(location);
-                }
+            if (baby != null) {
+                location.addAnimal(baby);
+                baby.setLocation(location);
             }
         }
     }

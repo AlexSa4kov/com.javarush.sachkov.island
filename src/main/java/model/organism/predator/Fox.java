@@ -1,5 +1,6 @@
 package main.java.model.organism.predator;
 
+import main.java.model.organism.abstraction.Animal;
 import main.java.model.organism.abstraction.Predator;
 
 public class Fox extends Predator {
@@ -25,5 +26,10 @@ public class Fox extends Predator {
                 "name='" + name + '\'' +
                 ", icon='" + icon + '\'' +
                 '}';
+    }
+
+    @Override
+    protected Animal createBaby() {
+        return new Fox();
     }
 }
