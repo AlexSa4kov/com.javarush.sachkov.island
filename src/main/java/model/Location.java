@@ -44,9 +44,7 @@ public class Location {
     public ArrayList<Animal> getAnimalsCopy() {
         return new ArrayList<>(animals);
     }
-    public ArrayList<Plant> getPlantsCopy() {
-        return new ArrayList<>(plants);
-    }
+    public ArrayList<Plant> getPlantsCopy() { return new ArrayList<>(plants); }
 
     public int getCountOfCurrentAnimal(String currentAnimal) {
         int count = 0;
@@ -63,13 +61,9 @@ public class Location {
     }
 
     public  void addPlant(Plant plant) {
-        if (plant == null) {
-            return;
-        }
-
-        if (this.plants.size() < plant.getLimitInArea()) {
-            plant.setLocation(this);
-            this.plants.add(plant);
+        plant.setLocation(this);
+        if (plants.size() < plant.getLimitInArea()) {
+            plants.add(plant);
         }
     }
 
